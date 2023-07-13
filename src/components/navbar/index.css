@@ -1,0 +1,19 @@
+nav {
+  height: 64px;
+  padding: 0px 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffe168;
+}
+
+.title {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1366px) {
+  nav {
+    padding: 0px 64px;
+  }
+}

@@ -5,6 +5,7 @@ interface ENV {
   FIREBASE_STORAGE_BUCKET: string | undefined;
   FIREBASE_MESSAGING_SENDER_ID: string | undefined;
   FIREBASE_APP_ID: string | undefined;
+  SERVER_DOMAIN: string | undefined;
 }
 
 interface Config {
@@ -14,6 +15,7 @@ interface Config {
   FIREBASE_STORAGE_BUCKET: string;
   FIREBASE_MESSAGING_SENDER_ID: string;
   FIREBASE_APP_ID: string;
+  SERVER_DOMAIN: string;
 }
 
 const getConfig = (): ENV => {
@@ -24,6 +26,7 @@ const getConfig = (): ENV => {
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    SERVER_DOMAIN: process.env.SERVER_DOMAIN,
   };
 };
 

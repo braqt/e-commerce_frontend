@@ -1,13 +1,21 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { SIGN_IN_PATH, SIGN_UP_PATH, USER_PATH } from "./pagePaths";
+import {
+  PRODUCTS_PATH,
+  PRODUCT_PATH,
+  SIGN_IN_PATH,
+  SIGN_UP_PATH,
+  USER_PATH,
+} from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
 import PageNotFound from "../pages/pageNotFound";
 import UserPage from "../pages/user";
 import AccessPage, { AccessType } from "../pages/access";
 import LayoutWithNavbar from "../components/layouts/layoutWithNavBar.tsx";
+import ProductsPage from "../pages/products";
+import ProductPage from "../pages/product";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -47,6 +55,8 @@ const RouterConfig = () => {
         path={SIGN_UP_PATH}
         element={<AccessPage accessTypeInitialValue={AccessType.SIGN_UP} />}
       />
+      <Route path={PRODUCTS_PATH} element={<ProductsPage />} />
+      <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

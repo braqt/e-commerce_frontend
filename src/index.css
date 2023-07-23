@@ -6,6 +6,10 @@ body {
   margin: 0px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 14px;
@@ -41,4 +45,10 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+:root {
+  --white: #ffffff;
+  --textColor: #000000;
+  --discountLabelColor: #56e88c;
 }

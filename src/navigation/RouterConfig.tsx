@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import {
+  MY_CART_PATH,
   PRODUCTS_PATH,
   PRODUCT_PATH,
   SIGN_IN_PATH,
@@ -16,6 +17,7 @@ import AccessPage, { AccessType } from "../pages/access";
 import LayoutWithNavbar from "../components/layouts/layoutWithNavBar.tsx";
 import ProductsPage from "../pages/products";
 import ProductPage from "../pages/product";
+import MyCart from "../pages/myCart";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -57,6 +59,7 @@ const RouterConfig = () => {
       />
       <Route path={PRODUCTS_PATH} element={<ProductsPage />} />
       <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
+      <Route path={`${MY_CART_PATH}`} element={<MyCart />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

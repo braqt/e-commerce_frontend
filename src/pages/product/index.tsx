@@ -10,11 +10,14 @@ import { centsToCurrencyNormalValue } from "../../utils/conversions";
 
 import SpinnerLoader from "../../components/loaders/spinnerLoader";
 import DiscountTag from "../../components/ProductTags/DiscountTag";
+import { useCart } from "../../context/cart";
 
 const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product>();
   const [isLoadingProduct, setIsLoadingProduct] = useState(true);
+
+  const { addProductToCart } = useCart();
 
   const fetchProduct = async () => {
     if (id) {
@@ -58,7 +61,13 @@ const ProductPage = () => {
                 </>
               )}
               <div>Available quantity: {product.quantity}</div>
-              <button>add to the cart</button>
+              <button
+                onClick={() => {
+                  addProductToCart(product, 1);
+                }}
+              >
+                add to the cart
+              </button>
             </div>
           </div>
           <div>

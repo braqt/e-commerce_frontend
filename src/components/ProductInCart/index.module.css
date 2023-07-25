@@ -1,0 +1,77 @@
+.productInCartFrame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 4px;
+}
+
+.productInCartFrame > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.productInCartImage {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 2px;
+}
+
+.productInCartDescriptionAndOperationFrame {
+  position: relative;
+  margin-left: 16px;
+  margin-right: 3.75rem;
+}
+
+.productInCartName {
+  font-size: 0.9375rem;
+}
+
+.productInCartOperationName {
+  position: absolute;
+  bottom: -45px;
+  font-size: 0.75rem;
+  color: var(--cornFlowerBlue);
+  cursor: pointer;
+}
+
+.productInCartSelectorAndQuantityAvailable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productInCartSelectorFrame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 6px;
+  border: 1px solid #262626;
+}
+
+.productInCartSelectorFrame > svg {
+  cursor: pointer;
+}
+
+.productInCartQuantitySelector {
+  font-size: 0.875rem;
+}
+
+.productInCartQuantityAvailable {
+  margin-top: 8px;
+  font-size: 0.75rem;
+}
+
+.productInCartTotalPrice {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-left: 2.5rem;
+  min-width: 100px;
+  text-align: end;
+}

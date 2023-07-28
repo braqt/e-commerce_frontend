@@ -1,7 +1,9 @@
 import React from "react";
+
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import {
+  CHECKOUT_PATH,
   MY_CART_PATH,
   PRODUCTS_PATH,
   PRODUCT_PATH,
@@ -14,10 +16,12 @@ import HomePage from "../pages/home";
 import PageNotFound from "../pages/pageNotFound";
 import UserPage from "../pages/user";
 import AccessPage, { AccessType } from "../pages/access";
-import LayoutWithNavbar from "../components/layouts/layoutWithNavBar.tsx";
 import ProductsPage from "../pages/products";
 import ProductPage from "../pages/product";
 import MyCart from "../pages/myCart";
+import CheckoutPage from "../pages/checkout";
+import LayoutWithNavbar from "../components/layouts/layoutWithNavBar";
+import LayoutWithNavBarWithoutAuthButtons from "../components/layouts/layoutWithNavBarWithoutAuthButtons";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -48,6 +52,19 @@ const RouterConfig = () => {
             </GuardedRoute>
           }
         />
+        <Route path={PRODUCTS_PATH} element={<ProductsPage />} />
+        <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
+        <Route path={`${MY_CART_PATH}`} element={<MyCart />} />
+      </Route>
+      <Route element={<LayoutWithNavBarWithoutAuthButtons />}>
+        <Route
+          path={`${CHECKOUT_PATH}`}
+          element={
+            <GuardedRoute>
+              <CheckoutPage />
+            </GuardedRoute>
+          }
+        />
       </Route>
       <Route
         path={SIGN_IN_PATH}
@@ -57,9 +74,6 @@ const RouterConfig = () => {
         path={SIGN_UP_PATH}
         element={<AccessPage accessTypeInitialValue={AccessType.SIGN_UP} />}
       />
-      <Route path={PRODUCTS_PATH} element={<ProductsPage />} />
-      <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
-      <Route path={`${MY_CART_PATH}`} element={<MyCart />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

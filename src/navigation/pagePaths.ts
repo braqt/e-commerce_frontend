@@ -4,4 +4,5 @@ export const SIGN_UP_PATH = "/signUp";
 export const PRODUCTS_PATH = "/products";
 export const PRODUCT_PATH = "/product";
 export const MY_CART_PATH = "/myCart";
+export const CHECKOUT_PATH = "/checkout";
 export const USER_PATH = "/user";

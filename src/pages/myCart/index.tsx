@@ -1,12 +1,14 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
 import globalStyles from "../../index.module.css";
-import styles from "./index.module.css";
 
 import { useCart } from "../../context/cart";
-import ProductInCart from "../../components/ProductInCart";
+import { CHECKOUT_PATH } from "../../navigation/pagePaths";
+import { getTotalFromProductsInCart } from "../../utils/cart";
 import { IProductInCart } from "../../interfaces/context";
-import { centsToCurrencyNormalValue } from "../../utils/conversions";
+import ProductInCart from "../../components/ProductInCart";
+import CartTotal from "../../components/CartTotal";
 
 const MyCart = () => {
   const {
@@ -14,6 +16,7 @@ const MyCart = () => {
     modifyProductQuantityFromCart,
     removeProductFromCart,
   } = useCart();
+  const navigate = useNavigate();
 
   const onClickPlusButton = (productInCart: IProductInCart) => {
     if (productInCart.quantity + 1 <= productInCart.product.quantity) {
@@ -37,21 +40,14 @@ const MyCart = () => {
     removeProductFromCart(productInCart);
   };
 
-  const getTotalFromProductsInCart = () => {
-    let total = 0;
-    for (let p of productsInCart) {
-      total =
-        total +
-        centsToCurrencyNormalValue(p.product.finalPriceInCents * p.quantity);
-    }
-    return total;
+  const onClickOrderProducts = () => {
+    navigate(CHECKOUT_PATH);
   };
 
   return (
     <div className={globalStyles.pageFrame}>
       <div>MyCart</div>
-
-      <div>
+      <div style={{ marginTop: "60px" }}>
         {productsInCart.map((productInCart) => (
           <ProductInCart
             key={productInCart.product._id}
@@ -73,11 +69,11 @@ const MyCart = () => {
         ))}
       </div>
       {productsInCart.length > 0 && (
-        <div className={styles.total}>
-          <label className={styles.totalLabel}>total</label>
-          <label className={styles.totalPriceLabel}>
-            Bs {getTotalFromProductsInCart()}
-          </label>
+        <div>
+          <CartTotal totalPrice={getTotalFromProductsInCart(productsInCart)} />
+          <div style={{ marginTop: "45px", textAlign: "center" }}>
+            <button onClick={onClickOrderProducts}>order products</button>
+          </div>
         </div>
       )}
     </div>

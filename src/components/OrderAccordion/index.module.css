@@ -1,0 +1,24 @@
+.orderDetail {
+  display: flex;
+  flex-direction: row;
+  gap: 12px 90px;
+  flex-wrap: wrap;
+}
+
+.orderDetail > div {
+  flex-shrink: 0;
+}
+
+.orderProduct {
+  overflow-y: scroll;
+  max-height: 240px;
+  padding: 2px 4px;
+}
+
+.orderProduct > div:not(:first-child) {
+  margin-top: 12px;
+}
+
+.orderAccordion {
+  margin: 0px !important;
+}

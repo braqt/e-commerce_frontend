@@ -9,7 +9,7 @@ import StepLabel from "@mui/material/StepLabel";
 
 import { useCart } from "../../context/cart";
 import { useAuthentication } from "../../context/auth";
-import { orderProducts } from "../../services/orderService";
+import { orderProducts } from "../../services";
 import { HOME_PATH } from "../../navigation/pagePaths";
 import HowToPayTheProduct from "../../components/panels/Checkout/HowToPayTheProduct";
 import ConfirmProductsInCart from "../../components/panels/Checkout/ConfirmProductsInCart";

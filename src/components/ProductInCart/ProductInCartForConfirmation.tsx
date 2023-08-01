@@ -9,6 +9,7 @@ interface Props {
   name: string;
   quantity: number;
   priceInCents: number;
+  size?: "normal" | "small";
 }
 
 const ProductInCartForConfirmation = ({
@@ -16,11 +17,19 @@ const ProductInCartForConfirmation = ({
   name,
   quantity,
   priceInCents,
+  size = "normal",
 }: Props) => {
   return (
     <div className={styles.productInCartFrame}>
       <div>
-        <img className={styles.productInCartImage} src={image} />
+        <img
+          className={
+            size == "normal"
+              ? styles.productInCartImage
+              : styles.productInCartSmallImage
+          }
+          src={image}
+        />
         <div className={styles.productInCartDescriptionAndOperationFrame}>
           <div className={styles.productInCartName}>{name}</div>
         </div>

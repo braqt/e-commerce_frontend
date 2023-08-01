@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import {
   CHECKOUT_PATH,
   MY_CART_PATH,
+  MY_ORDERS_PATH,
   PRODUCTS_PATH,
   PRODUCT_PATH,
   SIGN_IN_PATH,
@@ -22,6 +23,7 @@ import MyCart from "../pages/myCart";
 import CheckoutPage from "../pages/checkout";
 import LayoutWithNavbar from "../components/layouts/layoutWithNavBar";
 import LayoutWithNavBarWithoutAuthButtons from "../components/layouts/layoutWithNavBarWithoutAuthButtons";
+import MyOrdersPage from "../pages/myOrders";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -55,6 +57,7 @@ const RouterConfig = () => {
         <Route path={PRODUCTS_PATH} element={<ProductsPage />} />
         <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
         <Route path={`${MY_CART_PATH}`} element={<MyCart />} />
+        <Route path={MY_ORDERS_PATH} element={<MyOrdersPage />} />
       </Route>
       <Route element={<LayoutWithNavBarWithoutAuthButtons />}>
         <Route

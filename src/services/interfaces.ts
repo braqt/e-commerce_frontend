@@ -18,6 +18,16 @@ export interface OrderedProduct {
   quantity: number;
 }
 
+export interface Account {
+  name: string;
+  lastName: string;
+  phone: string;
+  dni: number;
+  email: string;
+  firebaseAuthID: string;
+  emailVerified: boolean;
+}
+
 export interface GetProductsResponse {
   products: Product[];
   pageNumberLimit: number;

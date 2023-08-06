@@ -8,6 +8,6 @@ export const PRODUCT_PATH = "/product";
 export const MY_CART_PATH = "/myCart";
 export const MY_ORDERS_PATH = "/myorders";
 export const CHECKOUT_PATH = "/checkout";
-export const USER_PATH = "/user";
+export const ACCOUNT_PATH = "/account";
 export const TERMS_AND_CONDITIONS_PATH = "/termsAndConditions";
 export const PRIVACY_POLICIES_PATH = "/privacyPolicies";

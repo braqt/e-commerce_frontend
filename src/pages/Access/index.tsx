@@ -8,7 +8,7 @@ import { useAuthentication } from "../../context/auth";
 import {
   SIGN_IN_PATH,
   SIGN_UP_PATH,
-  USER_PATH,
+  ACCOUNT_PATH,
   VERIFY_EMAIL_PATH,
 } from "../../navigation/pagePaths";
 import SignIn from "../../components/panels/Access/SignIn";
@@ -43,7 +43,7 @@ const AccessPage = ({ accessTypeInitialValue }: Props) => {
     <div className={globalStyles.pageFrame}>
       {!isLoading && (
         <>
-          {user && user.emailVerified && <Navigate to={USER_PATH} replace />}
+          {user && user.emailVerified && <Navigate to={ACCOUNT_PATH} replace />}
           {user && !user.emailVerified && (
             <Navigate to={VERIFY_EMAIL_PATH} replace />
           )}

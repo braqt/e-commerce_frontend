@@ -13,13 +13,13 @@ import {
   SIGN_IN_PATH,
   SIGN_UP_PATH,
   TERMS_AND_CONDITIONS_PATH,
-  USER_PATH,
+  ACCOUNT_PATH,
   VERIFY_EMAIL_PATH,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
 import PageNotFound from "../pages/pageNotFound";
-import UserPage from "../pages/user";
+import AccountPage from "../pages/account";
 import AccessPage, { AccessType } from "../pages/Access";
 import ProductsPage from "../pages/products";
 import ProductPage from "../pages/product";
@@ -55,10 +55,10 @@ const RouterConfig = () => {
       <Route element={<LayoutWithNavbar />}>
         <Route path="/" element={<HomePage />} />
         <Route
-          path={USER_PATH}
+          path={ACCOUNT_PATH}
           element={
             <GuardedRoute>
-              <UserPage />
+              <AccountPage />
             </GuardedRoute>
           }
         />

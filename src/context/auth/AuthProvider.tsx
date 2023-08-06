@@ -15,7 +15,7 @@ import {
 import sanitizedConfig from "../../constants/config";
 import { IAuthContext } from "../../interfaces/context/firebase";
 import { AuthContext } from ".";
-import { SIGN_IN_PATH, USER_PATH } from "../../navigation/pagePaths";
+import { SIGN_IN_PATH, ACCOUNT_PATH } from "../../navigation/pagePaths";
 
 export const AuthProvider = (props: { children: any }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -46,7 +46,7 @@ export const AuthProvider = (props: { children: any }) => {
 
   const sendEmailVerification = async (user: User) => {
     await firebaseSendEmailVerification(user, {
-      url: sanitizedConfig.FRONT_END_DOMAIN + USER_PATH,
+      url: sanitizedConfig.FRONT_END_DOMAIN + ACCOUNT_PATH,
     });
   };
 

@@ -1,0 +1,35 @@
+.accessPanelTitle {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.labelAndInput > *:not(:first-child) {
+  margin-top: 4px;
+}
+
+.clickableLabel {
+  text-decoration: underline;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.styledAnchor {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.errorLabel {
+  max-width: 300px;
+  margin: 0px auto;
+  text-align: center;
+  color: var(--errorColor);
+}

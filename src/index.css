@@ -58,4 +58,6 @@ body {
   --textColor: #000000;
   --discountLabelColor: #56e88c;
   --cornFlowerBlue: #5c9dfe;
+  --errorColor: #be1616;
+  --successColor: #0eba35;
 }

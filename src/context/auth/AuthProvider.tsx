@@ -9,11 +9,12 @@ import {
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
   sendEmailVerification as firebaseSendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import { IAuthContext } from "../../interfaces/context/firebase";
 import { AuthContext } from ".";
-import { USER_PATH } from "../../navigation/pagePaths";
+import { SIGN_IN_PATH, USER_PATH } from "../../navigation/pagePaths";
 
 export const AuthProvider = (props: { children: any }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -21,47 +22,37 @@ export const AuthProvider = (props: { children: any }) => {
   const auth = getAuth();
 
   const signIn = async (email: string, password: string) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      return userCredential.user;
-    } catch (e) {
-      throw new Error("Error signing in: " + e);
-    }
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user;
   };
 
   const signUp = async (email: string, password: string) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      return userCredential.user;
-    } catch (e) {
-      throw new Error("Error signing up: " + e);
-    }
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user;
   };
 
   const signOut = async () => {
-    try {
-      await firebaseSignOut(auth);
-    } catch (e) {
-      throw new Error("Error signing out: " + e);
-    }
+    await firebaseSignOut(auth);
   };
 
   const sendEmailVerification = async (user: User) => {
-    try {
-      await firebaseSendEmailVerification(user, {
-        url: `http://localhost:5280` + USER_PATH,
-      });
-    } catch (e) {
-      throw new Error("Error sending email verification: " + e);
-    }
+    await firebaseSendEmailVerification(user, {
+      url: "http://localhost:5280" + USER_PATH,
+    });
+  };
+
+  const sendEmailToResetPassord = async (email: string) => {
+    await sendPasswordResetEmail(auth, email, {
+      url: "http://localhost:5280" + SIGN_IN_PATH,
+    });
   };
 
   useEffect(() => {
@@ -85,6 +76,7 @@ export const AuthProvider = (props: { children: any }) => {
     signUp,
     signOut,
     sendEmailVerification,
+    sendEmailToResetPassord,
   };
 
   return (

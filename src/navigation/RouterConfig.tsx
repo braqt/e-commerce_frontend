@@ -6,17 +6,21 @@ import {
   CHECKOUT_PATH,
   MY_CART_PATH,
   MY_ORDERS_PATH,
+  PRIVACY_POLICIES_PATH,
   PRODUCTS_PATH,
   PRODUCT_PATH,
+  RESTORE_PASSWORD_PATH,
   SIGN_IN_PATH,
   SIGN_UP_PATH,
+  TERMS_AND_CONDITIONS_PATH,
   USER_PATH,
+  VERIFY_EMAIL_PATH,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
 import PageNotFound from "../pages/pageNotFound";
 import UserPage from "../pages/user";
-import AccessPage, { AccessType } from "../pages/access";
+import AccessPage, { AccessType } from "../pages/Access";
 import ProductsPage from "../pages/products";
 import ProductPage from "../pages/product";
 import MyCart from "../pages/myCart";
@@ -24,6 +28,10 @@ import CheckoutPage from "../pages/checkout";
 import LayoutWithNavbar from "../components/layouts/layoutWithNavBar";
 import LayoutWithNavBarWithoutAuthButtons from "../components/layouts/layoutWithNavBarWithoutAuthButtons";
 import MyOrdersPage from "../pages/myOrders";
+import TermsAndConditionsPage from "../pages/termsAndConditions";
+import PrivacyPoliciesPage from "../pages/privacyPolicies";
+import ResetPasswordPage from "../pages/resetPassword";
+import VerifyEmailPage from "../pages/verifyEmail";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -58,6 +66,11 @@ const RouterConfig = () => {
         <Route path={`${PRODUCT_PATH}/:id`} element={<ProductPage />} />
         <Route path={`${MY_CART_PATH}`} element={<MyCart />} />
         <Route path={MY_ORDERS_PATH} element={<MyOrdersPage />} />
+        <Route
+          path={TERMS_AND_CONDITIONS_PATH}
+          element={<TermsAndConditionsPage />}
+        />
+        <Route path={PRIVACY_POLICIES_PATH} element={<PrivacyPoliciesPage />} />
       </Route>
       <Route element={<LayoutWithNavBarWithoutAuthButtons />}>
         <Route
@@ -77,6 +90,8 @@ const RouterConfig = () => {
         path={SIGN_UP_PATH}
         element={<AccessPage accessTypeInitialValue={AccessType.SIGN_UP} />}
       />
+      <Route path={RESTORE_PASSWORD_PATH} element={<ResetPasswordPage />} />
+      <Route path={VERIFY_EMAIL_PATH} element={<VerifyEmailPage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

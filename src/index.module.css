@@ -3,3 +3,31 @@
   padding: 0px 3%;
   max-width: 1200px;
 }
+
+.authTitle {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.authSubTitle {
+  margin: 30px auto 0px auto;
+  font-size: 1rem;
+  max-width: 400px;
+  text-align: center;
+}
+
+.resultLabel {
+  max-width: 300px;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.errorLabel {
+  color: var(--errorColor);
+}
+
+.successLabel {
+  color: var(--successColor);
+}

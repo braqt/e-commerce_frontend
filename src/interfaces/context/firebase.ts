@@ -7,4 +7,5 @@ export interface IAuthContext {
   signUp: (email: string, password: string) => Promise<User>;
   signOut: () => Promise<void>;
   sendEmailVerification: (user: User) => Promise<void>;
+  sendEmailToResetPassord: (email: string) => Promise<void>;
 }

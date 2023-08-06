@@ -6,6 +6,7 @@ interface ENV {
   FIREBASE_MESSAGING_SENDER_ID: string | undefined;
   FIREBASE_APP_ID: string | undefined;
   SERVER_DOMAIN: string | undefined;
+  FRONT_END_DOMAIN: string | undefined;
 }
 
 interface Config {
@@ -16,6 +17,7 @@ interface Config {
   FIREBASE_MESSAGING_SENDER_ID: string;
   FIREBASE_APP_ID: string;
   SERVER_DOMAIN: string;
+  FRONT_END_DOMAIN: string;
 }
 
 const getConfig = (): ENV => {
@@ -27,6 +29,7 @@ const getConfig = (): ENV => {
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     SERVER_DOMAIN: process.env.SERVER_DOMAIN,
+    FRONT_END_DOMAIN: process.env.FRONT_END_DOMAIN,
   };
 };
 

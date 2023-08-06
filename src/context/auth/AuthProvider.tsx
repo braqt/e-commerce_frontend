@@ -12,6 +12,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
+import sanitizedConfig from "../../constants/config";
 import { IAuthContext } from "../../interfaces/context/firebase";
 import { AuthContext } from ".";
 import { SIGN_IN_PATH, USER_PATH } from "../../navigation/pagePaths";
@@ -45,13 +46,13 @@ export const AuthProvider = (props: { children: any }) => {
 
   const sendEmailVerification = async (user: User) => {
     await firebaseSendEmailVerification(user, {
-      url: "http://localhost:5280" + USER_PATH,
+      url: sanitizedConfig.FRONT_END_DOMAIN + USER_PATH,
     });
   };
 
   const sendEmailToResetPassord = async (email: string) => {
     await sendPasswordResetEmail(auth, email, {
-      url: "http://localhost:5280" + SIGN_IN_PATH,
+      url: sanitizedConfig.FRONT_END_DOMAIN + SIGN_IN_PATH,
     });
   };
 

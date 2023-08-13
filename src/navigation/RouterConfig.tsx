@@ -16,6 +16,7 @@ import {
   ACCOUNT_PATH,
   VERIFY_EMAIL_PATH,
   ADMIN_PRODUCTS,
+  PAGE_NOT_FOUND_PATH,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
@@ -52,6 +53,18 @@ const GuardedRoute = ({ children }: GuardedRouteProps) => {
   }
 };
 
+const GuardedAdminRoute = ({ children }: GuardedRouteProps) => {
+  const { user, account, isLoading } = useAuthentication();
+
+  if (!isLoading) {
+    if (user && user.emailVerified && account && account.isAdmin) {
+      return children;
+    } else {
+      return <Navigate to={PAGE_NOT_FOUND_PATH} replace />;
+    }
+  }
+};
+
 const RouterConfig = () => {
   return (
     <Routes>
@@ -75,7 +88,14 @@ const RouterConfig = () => {
         />
         <Route path={PRIVACY_POLICIES_PATH} element={<PrivacyPoliciesPage />} />
         <Route element={<LayoutWithSideNavBarAdmin />}>
-          <Route path={ADMIN_PRODUCTS} element={<AdminProductsPage />} />
+          <Route
+            path={ADMIN_PRODUCTS}
+            element={
+              <GuardedAdminRoute>
+                <AdminProductsPage />
+              </GuardedAdminRoute>
+            }
+          />
         </Route>
       </Route>
       <Route element={<LayoutWithNavBarWithoutAuthButtons />}>
@@ -98,7 +118,8 @@ const RouterConfig = () => {
       />
       <Route path={RESTORE_PASSWORD_PATH} element={<ResetPasswordPage />} />
       <Route path={VERIFY_EMAIL_PATH} element={<VerifyEmailPage />} />
-      <Route path="*" element={<PageNotFound />} />
+      <Route path={PAGE_NOT_FOUND_PATH} element={<PageNotFound />} />
+      <Route path="*" element={<Navigate to={PAGE_NOT_FOUND_PATH} replace />} />
     </Routes>
   );
 };

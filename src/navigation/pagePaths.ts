@@ -3,6 +3,7 @@ export const SIGN_IN_PATH = "/signIn";
 export const SIGN_UP_PATH = "/signUp";
 export const RESTORE_PASSWORD_PATH = "/restorePassword";
 export const VERIFY_EMAIL_PATH = "/verifyEmail";
+export const PAGE_NOT_FOUND_PATH = "/pageNotFound";
 export const PRODUCTS_PATH = "/products";
 export const PRODUCT_PATH = "/product";
 export const MY_CART_PATH = "/myCart";

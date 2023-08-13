@@ -1,7 +1,10 @@
 import { User } from "firebase/auth";
+import { Account } from "../../services/interfaces";
 
 export interface IAuthContext {
   user: User | null;
+  account: Account | null;
+  firebaseAuthToken: string;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<User>;
   signUp: (email: string, password: string) => Promise<User>;

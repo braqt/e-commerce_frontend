@@ -11,3 +11,4 @@ export const CHECKOUT_PATH = "/checkout";
 export const ACCOUNT_PATH = "/account";
 export const TERMS_AND_CONDITIONS_PATH = "/termsAndConditions";
 export const PRIVACY_POLICIES_PATH = "/privacyPolicies";
+export const ADMIN_PRODUCTS = "/admin/products";

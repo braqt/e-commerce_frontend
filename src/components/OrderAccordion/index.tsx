@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import styles from "./index.module.css";
 import { MdExpandMore } from "react-icons/md";
-import { format } from "date-fns";
 
 import {
   centsToCurrencyNormalValue,
   orderStatusToString,
   paymentMethodToString,
   paymentStatusToString,
+  timestampToDateWithFormat,
 } from "../../utils/conversions";
 import { OrderedProduct } from "../../services/interfaces";
 import { getProduct } from "../../services";
@@ -46,7 +46,7 @@ const OrderAccordion = ({ order }: Props) => {
       </AccordionSummary>
       <AccordionDetails>
         <div className={styles.orderDetail}>
-          <div>Date: {format(new Date(order.createdAt), "PPP")}</div>
+          <div>Date: {timestampToDateWithFormat(order.createdAt)}</div>
           <div>
             Payment Method: {paymentMethodToString(order.paymentMethod)}
           </div>

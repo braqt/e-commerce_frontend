@@ -4,6 +4,12 @@
   max-width: 1200px;
 }
 
+.pageFrame2 {
+  width: 100%;
+  margin-top: 18px;
+  padding: 0px 2%;
+}
+
 .authTitle {
   text-align: center;
   text-transform: uppercase;

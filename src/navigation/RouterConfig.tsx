@@ -15,6 +15,7 @@ import {
   TERMS_AND_CONDITIONS_PATH,
   ACCOUNT_PATH,
   VERIFY_EMAIL_PATH,
+  ADMIN_PRODUCTS,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
@@ -27,11 +28,13 @@ import MyCart from "../pages/myCart";
 import CheckoutPage from "../pages/checkout";
 import LayoutWithNavbar from "../components/layouts/layoutWithNavBar";
 import LayoutWithNavBarWithoutAuthButtons from "../components/layouts/layoutWithNavBarWithoutAuthButtons";
+import LayoutWithSideNavBarAdmin from "../components/layouts/layoutWithSideNavbarAdmin";
 import MyOrdersPage from "../pages/myOrders";
 import TermsAndConditionsPage from "../pages/termsAndConditions";
 import PrivacyPoliciesPage from "../pages/privacyPolicies";
 import ResetPasswordPage from "../pages/resetPassword";
 import VerifyEmailPage from "../pages/verifyEmail";
+import AdminProductsPage from "../pages/admin/products";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -71,6 +74,9 @@ const RouterConfig = () => {
           element={<TermsAndConditionsPage />}
         />
         <Route path={PRIVACY_POLICIES_PATH} element={<PrivacyPoliciesPage />} />
+        <Route element={<LayoutWithSideNavBarAdmin />}>
+          <Route path={ADMIN_PRODUCTS} element={<AdminProductsPage />} />
+        </Route>
       </Route>
       <Route element={<LayoutWithNavBarWithoutAuthButtons />}>
         <Route

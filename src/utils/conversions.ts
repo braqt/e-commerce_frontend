@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import {
   OrderStatus,
   PaymentMethod,
@@ -35,4 +36,8 @@ export const orderStatusToString = (orderStatus: OrderStatus) => {
     case OrderStatus.NOT_PREPARED:
       return "Not Prepared";
   }
+};
+
+export const timestampToDateWithFormat = (timestamp: string | number) => {
+  return format(new Date(timestamp), "PPP");
 };

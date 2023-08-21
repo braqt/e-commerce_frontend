@@ -6,3 +6,4 @@ export const GET_COMPLETED_ORDERS = "/users/completedOrders";
 export const GET_NOT_COMPLETED_ORDERS = "/users/notCompletedOrders";
 export const GET_ACCOUNT = "/users/getUser";
 export const ADMIN_GET_PRODUCTS = "/admin/products/getProducts";
+export const ADMIN_CREATE_PRODUCT = "/admin/products/createProduct";

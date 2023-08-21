@@ -1,4 +1,4 @@
-import { ADMIN_GET_PRODUCTS } from "./CONSTANTS";
+import { ADMIN_CREATE_PRODUCT, ADMIN_GET_PRODUCTS } from "./CONSTANTS";
 import config from "../constants/config";
 import { GetProductsResponse } from "./interfaces";
 
@@ -23,4 +23,35 @@ export const getAdminProducts = async (
   });
 
   return await response.json();
+};
+
+export const createProduct = async (
+  authToken: string,
+  name: string,
+  description: string,
+  category: string,
+  price: string,
+  discountPercentage: string,
+  quantity: string,
+  images: FileList
+) => {
+  const formData = new FormData();
+
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("category", category);
+  formData.append("price", price);
+  formData.append("discountPercentage", discountPercentage);
+  formData.append("quantity", quantity);
+  for (let image of images) {
+    formData.append("images", image);
+  }
+
+  await fetch(config.SERVER_DOMAIN + ADMIN_CREATE_PRODUCT, {
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: formData,
+  });
 };

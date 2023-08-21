@@ -1,4 +1,9 @@
-import { IOrder } from "../interfaces/context";
+import {
+  IOrder,
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+} from "../interfaces/context";
 
 export interface Product {
   _id: string;
@@ -10,6 +15,17 @@ export interface Product {
   discountPercentage: number;
   quantity: number;
   finalPriceInCents: number;
+  createdAt: string;
+}
+
+export interface Order {
+  _id: string;
+  orderNumber: number;
+  totalInCents: number;
+  user: Account;
+  state: OrderStatus;
+  paymentMethod: PaymentMethod;
+  paymentState: PaymentStatus;
   createdAt: string;
 }
 
@@ -30,6 +46,11 @@ export interface Account {
 
 export interface GetProductsResponse {
   products: Product[];
+  pageNumberLimit: number;
+}
+
+export interface GetOrdersResponse {
+  orders: Order[];
   pageNumberLimit: number;
 }
 

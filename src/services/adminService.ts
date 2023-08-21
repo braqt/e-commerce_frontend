@@ -1,6 +1,10 @@
-import { ADMIN_CREATE_PRODUCT, ADMIN_GET_PRODUCTS } from "./CONSTANTS";
+import {
+  ADMIN_CREATE_PRODUCT,
+  ADMIN_GET_PRODUCTS,
+  ADMIN_GET_ORDERS,
+} from "./CONSTANTS";
 import config from "../constants/config";
-import { GetProductsResponse } from "./interfaces";
+import { GetOrdersResponse, GetProductsResponse } from "./interfaces";
 
 export const getAdminProducts = async (
   pageNumber: number,
@@ -19,6 +23,30 @@ export const getAdminProducts = async (
       pageNumber,
       pageSize,
       productName: filter.name,
+    }),
+  });
+
+  return await response.json();
+};
+
+export const getAdminOrders = async (
+  pageNumber: number,
+  pageSize: number,
+  authToken: string,
+  filter: { clientName: string; orderNumber: string }
+): Promise<GetOrdersResponse> => {
+  const response = await fetch(config.SERVER_DOMAIN + ADMIN_GET_ORDERS, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      pageNumber,
+      pageSize,
+      clientName: filter.clientName,
+      orderNumber: filter.orderNumber,
     }),
   });
 

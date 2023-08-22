@@ -44,6 +44,14 @@ export interface Account {
   emailVerified: boolean;
 }
 
+export interface AccountWithStatistics extends Account {
+  _id: string;
+  statistics: {
+    totalSpentInCents: number;
+    numberOfCompletedOrders: number;
+  };
+}
+
 export interface GetProductsResponse {
   products: Product[];
   pageNumberLimit: number;
@@ -51,6 +59,11 @@ export interface GetProductsResponse {
 
 export interface GetOrdersResponse {
   orders: Order[];
+  pageNumberLimit: number;
+}
+
+export interface GetUsersResponse {
+  users: AccountWithStatistics[];
   pageNumberLimit: number;
 }
 

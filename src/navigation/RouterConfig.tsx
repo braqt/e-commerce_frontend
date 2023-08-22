@@ -18,6 +18,7 @@ import {
   ADMIN_PRODUCTS,
   PAGE_NOT_FOUND_PATH,
   ADMIN_ORDERS,
+  ADMIN_USERS,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
@@ -38,6 +39,7 @@ import ResetPasswordPage from "../pages/resetPassword";
 import VerifyEmailPage from "../pages/verifyEmail";
 import AdminProductsPage from "../pages/admin/products";
 import AdminOrdersPage from "../pages/admin/orders";
+import AdminUsersPage from "../pages/admin/users";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -103,6 +105,14 @@ const RouterConfig = () => {
             element={
               <GuardedAdminRoute>
                 <AdminOrdersPage />
+              </GuardedAdminRoute>
+            }
+          />
+          <Route
+            path={ADMIN_USERS}
+            element={
+              <GuardedAdminRoute>
+                <AdminUsersPage />
               </GuardedAdminRoute>
             }
           />

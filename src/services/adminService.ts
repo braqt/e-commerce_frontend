@@ -2,9 +2,14 @@ import {
   ADMIN_CREATE_PRODUCT,
   ADMIN_GET_PRODUCTS,
   ADMIN_GET_ORDERS,
+  ADMIN_GET_USERS,
 } from "./CONSTANTS";
 import config from "../constants/config";
-import { GetOrdersResponse, GetProductsResponse } from "./interfaces";
+import {
+  GetOrdersResponse,
+  GetProductsResponse,
+  GetUsersResponse,
+} from "./interfaces";
 
 export const getAdminProducts = async (
   pageNumber: number,
@@ -47,6 +52,29 @@ export const getAdminOrders = async (
       pageSize,
       clientName: filter.clientName,
       orderNumber: filter.orderNumber,
+    }),
+  });
+
+  return await response.json();
+};
+
+export const getAdminUsers = async (
+  pageNumber: number,
+  pageSize: number,
+  authToken: string,
+  filter: { clientName: string }
+): Promise<GetUsersResponse> => {
+  const response = await fetch(config.SERVER_DOMAIN + ADMIN_GET_USERS, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      pageNumber,
+      pageSize,
+      userName: filter.clientName,
     }),
   });
 

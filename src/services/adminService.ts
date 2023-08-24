@@ -3,11 +3,15 @@ import {
   ADMIN_GET_PRODUCTS,
   ADMIN_GET_ORDERS,
   ADMIN_GET_USERS,
+  ADMIN_GET_USER,
+  ADMIN_GET_USER_ORDERS,
 } from "./CONSTANTS";
 import config from "../constants/config";
 import {
+  AccountWithStatistics,
   GetOrdersResponse,
   GetProductsResponse,
+  GetUserOrdersResponse,
   GetUsersResponse,
 } from "./interfaces";
 
@@ -75,6 +79,48 @@ export const getAdminUsers = async (
       pageNumber,
       pageSize,
       userName: filter.clientName,
+    }),
+  });
+
+  return await response.json();
+};
+
+export const getAdminUser = async (
+  idUser: string,
+  authToken: string
+): Promise<AccountWithStatistics> => {
+  const response = await fetch(config.SERVER_DOMAIN + ADMIN_GET_USER, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      id: idUser,
+    }),
+  });
+
+  return await response.json();
+};
+
+export const getAdminUserOrders = async (
+  pageNumber: number,
+  pageSize: number,
+  idUser: string,
+  authToken: string
+): Promise<GetUserOrdersResponse> => {
+  const response = await fetch(config.SERVER_DOMAIN + ADMIN_GET_USER_ORDERS, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      pageNumber,
+      pageSize,
+      id: idUser,
     }),
   });
 

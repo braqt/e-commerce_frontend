@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import {
   OrderStatus,
   PaymentMethod,
@@ -40,4 +40,8 @@ export const orderStatusToString = (orderStatus: OrderStatus) => {
 
 export const timestampToDateWithFormat = (timestamp: string | number) => {
   return format(new Date(timestamp), "PPP");
+};
+
+export const timestampToRelativeData = (timestamp: string | number) => {
+  return formatDistance(new Date(timestamp), new Date(), { addSuffix: true });
 };

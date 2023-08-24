@@ -1,0 +1,18 @@
+.userStatistics div:nth-child(1) {
+  font-size: 0.9375rem;
+}
+
+.userStatistics div:nth-child(2) {
+  margin-top: 5px;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.userData {
+  font-size: 0.9375rem;
+}
+
+.userData label:nth-child(1) {
+  font-weight: 600;
+  margin-right: 6px;
+}

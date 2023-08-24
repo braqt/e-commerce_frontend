@@ -42,6 +42,7 @@ export interface Account {
   email: string;
   firebaseAuthID: string;
   emailVerified: boolean;
+  createdAt: string;
 }
 
 export interface AccountWithStatistics extends Account {
@@ -64,6 +65,20 @@ export interface GetOrdersResponse {
 
 export interface GetUsersResponse {
   users: AccountWithStatistics[];
+  pageNumberLimit: number;
+}
+
+export interface UserOrder {
+  orderNumber: number;
+  totalInCents: number;
+  paymentMethod: PaymentMethod;
+  paymentState: PaymentStatus;
+  state: OrderStatus;
+  createdAt: string;
+}
+
+export interface GetUserOrdersResponse {
+  orders: UserOrder[];
   pageNumberLimit: number;
 }
 

@@ -8,4 +8,6 @@ export const GET_ACCOUNT = "/users/getUser";
 export const ADMIN_GET_PRODUCTS = "/admin/products/getProducts";
 export const ADMIN_GET_ORDERS = "/admin/orders/getOrders";
 export const ADMIN_GET_USERS = "/admin/users/getUsers";
+export const ADMIN_GET_USER = "/admin/users/getUser";
+export const ADMIN_GET_USER_ORDERS = "/admin/users/getOrders";
 export const ADMIN_CREATE_PRODUCT = "/admin/products/createProduct";

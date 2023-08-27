@@ -35,6 +35,7 @@ export interface OrderedProduct {
 }
 
 export interface Account {
+  _id: string;
   name: string;
   lastName: string;
   phone: string;

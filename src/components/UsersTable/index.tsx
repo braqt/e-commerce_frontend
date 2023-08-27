@@ -10,8 +10,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { AccountWithStatistics } from "../../services/interfaces";
 import { centsToCurrencyNormalValue } from "../../utils/conversions";
+import { ADMIN_USER } from "../../navigation/pagePaths";
 
 interface UserDataRow {
+  idUser: string;
   name: string;
   lastName: string;
   email: string;
@@ -42,6 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function createData(
+  idUser: string,
   name: string,
   lastName: string,
   email: string,
@@ -51,6 +54,7 @@ function createData(
   totalSpentInCents: number
 ) {
   return {
+    idUser,
     name,
     lastName,
     email,
@@ -70,10 +74,10 @@ const UsersTable = ({ users }: Props) => {
 
   useEffect(() => {
     let rows: UserDataRow[] = [];
-    console.log(users);
     for (let user of users) {
       rows.push(
         createData(
+          user._id,
           user.name,
           user.lastName,
           user.email,
@@ -84,7 +88,6 @@ const UsersTable = ({ users }: Props) => {
         )
       );
     }
-    console.log(users);
     setRows(rows);
   }, []);
 
@@ -105,7 +108,13 @@ const UsersTable = ({ users }: Props) => {
           {rows.map((row) => (
             <StyledTableRow key={row.email}>
               <StyledTableCell align="left">
-                {`${row.name} ${row.lastName}`}
+                <a
+                  href={`${ADMIN_USER}/${row.idUser}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {`${row.name} ${row.lastName}`}
+                </a>
               </StyledTableCell>
               <StyledTableCell align="left">{row.email}</StyledTableCell>
               <StyledTableCell align="left">{row.phone}</StyledTableCell>

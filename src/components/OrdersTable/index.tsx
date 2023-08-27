@@ -21,8 +21,10 @@ import {
   paymentStatusToString,
   timestampToDateWithFormat,
 } from "../../utils/conversions";
+import { ADMIN_USER } from "../../navigation/pagePaths";
 
 interface ProductDataRow {
+  idUser: string;
   orderNumber: number;
   createdAt: string;
   name: string;
@@ -54,6 +56,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function createData(
+  idUser: string,
   orderNumber: number,
   createdAt: string,
   name: string,
@@ -64,6 +67,7 @@ function createData(
   orderStatus: OrderStatus
 ) {
   return {
+    idUser,
     orderNumber,
     createdAt,
     name,
@@ -87,6 +91,7 @@ const OrdersTable = ({ orders }: Props) => {
     for (let order of orders) {
       rows.push(
         createData(
+          order.user._id,
           order.orderNumber,
           order.createdAt,
           order.user.name,
@@ -124,7 +129,13 @@ const OrdersTable = ({ orders }: Props) => {
               <StyledTableCell align="left">
                 {timestampToDateWithFormat(row.createdAt)}
               </StyledTableCell>
-              <StyledTableCell align="left">{`${row.name} ${row.lastName}`}</StyledTableCell>
+              <StyledTableCell align="left">
+                <a
+                  href={`${ADMIN_USER}/${row.idUser}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >{`${row.name} ${row.lastName}`}</a>
+              </StyledTableCell>
               <StyledTableCell align="left">
                 {centsToCurrencyNormalValue(row.totalPriceInCents)}
               </StyledTableCell>

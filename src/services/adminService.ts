@@ -5,6 +5,9 @@ import {
   ADMIN_GET_USERS,
   ADMIN_GET_USER,
   ADMIN_GET_USER_ORDERS,
+  ADMIN_GET_ORDER,
+  ADMIN_SET_ORDER_STATUS,
+  ADMIN_SET_PAYMENT_STATUS,
 } from "./CONSTANTS";
 import config from "../constants/config";
 import {
@@ -13,7 +16,9 @@ import {
   GetProductsResponse,
   GetUserOrdersResponse,
   GetUsersResponse,
+  Order,
 } from "./interfaces";
+import { OrderStatus, PaymentStatus } from "../interfaces/context";
 
 export const getAdminProducts = async (
   pageNumber: number,
@@ -60,6 +65,63 @@ export const getAdminOrders = async (
   });
 
   return await response.json();
+};
+
+export const getAdminOrder = async (
+  orderNumber: string,
+  authToken: string
+): Promise<Order> => {
+  const response = await fetch(
+    config.SERVER_DOMAIN + ADMIN_GET_ORDER + "?orderNumber=" + orderNumber,
+    {
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
+
+  return await response.json();
+};
+
+export const adminSetOrderStatus = async (
+  orderNumber: string,
+  orderStatus: OrderStatus,
+  authToken: string
+) => {
+  await fetch(config.SERVER_DOMAIN + ADMIN_SET_ORDER_STATUS, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      orderNumber,
+      orderStateValue: orderStatus,
+    }),
+  });
+};
+
+export const adminSetPaymentStatus = async (
+  orderNumber: string,
+  paymentStatus: PaymentStatus,
+  authToken: string
+) => {
+  await fetch(config.SERVER_DOMAIN + ADMIN_SET_PAYMENT_STATUS, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      orderNumber,
+      paymentStateValue: paymentStatus,
+    }),
+  });
 };
 
 export const getAdminUsers = async (

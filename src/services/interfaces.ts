@@ -22,7 +22,11 @@ export interface Order {
   _id: string;
   orderNumber: number;
   totalInCents: number;
-  user: Account;
+  user: AccountWithStatistics;
+  products: {
+    item: Product;
+    quantity: number;
+  }[];
   state: OrderStatus;
   paymentMethod: PaymentMethod;
   paymentState: PaymentStatus;

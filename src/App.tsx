@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import { AuthProvider } from "./context/auth/AuthProvider";
 import { useAuthentication } from "./context/auth";
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <AuthProvider>
       <CartProvider>
+        <Toaster />
         {isLoading && <SpinnerLoader />}
         {!isLoading && (
           <BrowserRouter>

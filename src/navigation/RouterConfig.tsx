@@ -20,6 +20,7 @@ import {
   ADMIN_ORDERS,
   ADMIN_USERS,
   ADMIN_USER,
+  ADMIN_ORDER,
 } from "./pagePaths";
 import { useAuthentication } from "../context/auth";
 import HomePage from "../pages/home";
@@ -42,6 +43,7 @@ import AdminProductsPage from "../pages/admin/products";
 import AdminOrdersPage from "../pages/admin/orders";
 import AdminUsersPage from "../pages/admin/users";
 import AdminUserPage from "../pages/admin/user";
+import AdminOrderPage from "../pages/admin/order";
 
 interface GuardedRouteProps {
   children: React.ReactNode;
@@ -107,6 +109,14 @@ const RouterConfig = () => {
             element={
               <GuardedAdminRoute>
                 <AdminOrdersPage />
+              </GuardedAdminRoute>
+            }
+          />
+          <Route
+            path={`${ADMIN_ORDER}/:orderNumber`}
+            element={
+              <GuardedAdminRoute>
+                <AdminOrderPage />
               </GuardedAdminRoute>
             }
           />

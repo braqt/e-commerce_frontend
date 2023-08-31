@@ -1,0 +1,15 @@
+.cardFrame {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 4px;
+  padding: 0px 24px;
+  border-radius: 6px;
+}
+
+.cardTitle {
+  padding: 20px 0px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.link {
+  color: var(--cornFlowerBlue);
+}

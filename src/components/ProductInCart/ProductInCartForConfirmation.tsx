@@ -20,7 +20,13 @@ const ProductInCartForConfirmation = ({
   size = "normal",
 }: Props) => {
   return (
-    <div className={styles.productInCartFrame}>
+    <div
+      className={
+        size == "normal"
+          ? styles.productInCartFrame
+          : styles.productInCartFrameSmall
+      }
+    >
       <div>
         <img
           className={

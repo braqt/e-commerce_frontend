@@ -8,6 +8,22 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 4px;
 }
 
+.productInCartFrameSmall {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 4px;
+}
+
+.productInCartFrameSmall > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .productInCartFrame > div {
   display: flex;
   flex-direction: row;
@@ -79,7 +95,7 @@
 .productInCartTotalPrice {
   font-size: 1.125rem;
   font-weight: 500;
-  margin-left: 2.5rem;
+  margin-left: 1.125rem;
   min-width: 100px;
   text-align: end;
 }

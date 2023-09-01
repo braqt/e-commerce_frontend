@@ -137,7 +137,7 @@ const OrdersTable = ({ orders }: Props) => {
                 >{`${row.name} ${row.lastName}`}</a>
               </StyledTableCell>
               <StyledTableCell align="left">
-                {centsToCurrencyNormalValue(row.totalPriceInCents)}
+                Bs {centsToCurrencyNormalValue(row.totalPriceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {paymentMethodToString(row.paymentMethod)}

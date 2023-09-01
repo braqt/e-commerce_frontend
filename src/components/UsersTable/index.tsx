@@ -125,7 +125,7 @@ const UsersTable = ({ users }: Props) => {
                 {row.numberOfCompletedOrders}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {`Bs ${centsToCurrencyNormalValue(row.totalSpentInCents)}`}
+                Bs {centsToCurrencyNormalValue(row.totalSpentInCents)}
               </StyledTableCell>
             </StyledTableRow>
           ))}

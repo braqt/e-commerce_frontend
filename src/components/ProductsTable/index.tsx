@@ -112,15 +112,13 @@ const ProductsTable = ({ products }: Props) => {
               <StyledTableCell align="left">
                 <img className={styles.image} src={row.imageUrl} />
               </StyledTableCell>
-              <StyledTableCell align="left" scope="row">
-                {row.name}
-              </StyledTableCell>
+              <StyledTableCell align="left">{row.name}</StyledTableCell>
               <StyledTableCell align="left">
-                {centsToCurrencyNormalValue(row.priceInCents)}
+                Bs {centsToCurrencyNormalValue(row.priceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">{`${row.discountPercentage}%`}</StyledTableCell>
               <StyledTableCell align="left">
-                {centsToCurrencyNormalValue(row.finalPriceInCents)}
+                Bs {centsToCurrencyNormalValue(row.finalPriceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">{row.category}</StyledTableCell>
               <StyledTableCell align="left">

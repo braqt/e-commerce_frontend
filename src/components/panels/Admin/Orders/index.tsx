@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import globalStyles from "../../../../index.module.css";
-import styles from "../index.module.css";
+import adminPanelStyles from "../index.module.css";
+import styles from "./index.module.css";
 
 import { useAuthentication } from "../../../../context/auth";
 import { Order } from "../../../../services/interfaces";
@@ -43,23 +44,21 @@ const OrdersPanel = () => {
 
   return (
     <div className={globalStyles.pageFrame2}>
-      <div className={styles.title}>Orders</div>
-      <div className={styles.operationFrame}>
-        <div className={styles.filters}>
-          <StyledInput
-            style={{ width: "140px" }}
-            value={orderNumber}
-            onChange={onChangeOrderNumber}
-            placeholder="Order Number"
-          />
-          <StyledInput
-            style={{ width: "240px" }}
-            value={clientName}
-            onChange={onChangeName}
-            placeholder="Client Name"
-          />
-          <button onClick={fetchAndSetOrders}>search</button>
-        </div>
+      <div className={adminPanelStyles.title}>Orders</div>
+      <div className={styles.filters}>
+        <StyledInput
+          style={{ width: "140px" }}
+          value={orderNumber}
+          onChange={onChangeOrderNumber}
+          placeholder="Order Number"
+        />
+        <StyledInput
+          style={{ width: "240px" }}
+          value={clientName}
+          onChange={onChangeName}
+          placeholder="Client Name"
+        />
+        <button onClick={fetchAndSetOrders}>search</button>
       </div>
       <div style={{ marginTop: "18px", height: "300px", position: "relative" }}>
         {loadingOrders && <SpinnerLoader />}

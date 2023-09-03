@@ -97,7 +97,7 @@
   font-weight: 500;
   margin-left: 1.125rem;
   min-width: 100px;
-  text-align: end;
+  text-align: start;
 }
 
 .productInCartConfirmationQuantityAvailable {

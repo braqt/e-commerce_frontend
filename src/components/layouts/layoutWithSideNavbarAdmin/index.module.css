@@ -23,3 +23,9 @@
 .sideNavBarOption:hover {
   background-color: var(--seaSalt);
 }
+
+@media (max-width: 1079px) {
+  .sideNavBar {
+    display: none;
+  }
+}

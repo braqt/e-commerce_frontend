@@ -13,23 +13,9 @@
   max-width: 800px;
 }
 
-.operationFrame {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 40px;
-}
-
 .finalPrice {
   font-size: 1.25rem;
   height: 36.8px;
   display: flex;
   align-items: center;
-}
-
-.filters {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import globalStyles from "../../../../index.module.css";
-import styles from "../index.module.css";
+import adminPanelStyles from "../index.module.css";
+import styles from "./index.module.css";
 
 import { useAuthentication } from "../../../../context/auth";
 import { AccountWithStatistics } from "../../../../services/interfaces";
@@ -37,17 +38,15 @@ const UsersPanel = () => {
 
   return (
     <div className={globalStyles.pageFrame2}>
-      <div className={styles.title}>Users</div>
-      <div className={styles.operationFrame}>
-        <div className={styles.filters}>
-          <StyledInput
-            style={{ width: "240px" }}
-            value={clientName}
-            onChange={onChangeName}
-            placeholder="Client Name"
-          />
-          <button onClick={fetchAndSetUsers}>search</button>
-        </div>
+      <div className={adminPanelStyles.title}>Users</div>
+      <div className={styles.filters}>
+        <StyledInput
+          style={{ width: "240px" }}
+          value={clientName}
+          onChange={onChangeName}
+          placeholder="Client Name"
+        />
+        <button onClick={fetchAndSetUsers}>search</button>
       </div>
       <div style={{ marginTop: "18px", height: "300px", position: "relative" }}>
         {loadingUsers && <SpinnerLoader />}

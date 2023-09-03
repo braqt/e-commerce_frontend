@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import globalStyles from "../../../../index.module.css";
 import accessStyles from "../../Access/index.module.css";
-import styles from "../index.module.css";
+import adminPanelStyles from "../index.module.css";
+import styles from "./index.module.css";
+
 import StyledInput from "../../../Input/StyledInput";
 import {
   MenuItem,
@@ -68,11 +70,11 @@ const CreateProductPanel = ({ onClickBack, onCreateProduct }: Props) => {
 
   return (
     <div className={globalStyles.pageFrame2}>
-      <div className={styles.title}>Create Product</div>
-      <div style={{ marginTop: "28px" }}>
+      <div className={adminPanelStyles.title}>Create Product</div>
+      <div style={{ marginTop: "var(--marginTopAfterTitle)" }}>
         <button onClick={onClickBack}>back</button>
       </div>
-      <form onSubmit={onSubmit} className={styles.createProductForm}>
+      <form onSubmit={onSubmit} className={adminPanelStyles.createProductForm}>
         <div className={accessStyles.labelAndInput}>
           <div>Product Name</div>
           <StyledInput
@@ -177,14 +179,14 @@ const CreateProductPanel = ({ onClickBack, onCreateProduct }: Props) => {
           </div>
           <div className={accessStyles.labelAndInput}>
             <div>Final Price</div>
-            <div className={styles.finalPrice}>
+            <div className={adminPanelStyles.finalPrice}>
               Bs{" "}
               {+inputValues.price -
                 +inputValues.price * (+inputValues.discount / 100)}
             </div>
           </div>
         </div>
-        <div style={{ margin: "10px 0px 20px 0px" }}>
+        <div className={styles.createButtonContainer}>
           <button type="submit">create product</button>
         </div>
       </form>

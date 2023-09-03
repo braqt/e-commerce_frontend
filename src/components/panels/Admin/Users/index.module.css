@@ -1,0 +1,14 @@
+.filters {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: var(--marginTopAfterTitle);
+}
+
+@media (max-width: 540px) {
+  .filters {
+    justify-content: center;
+  }
+}

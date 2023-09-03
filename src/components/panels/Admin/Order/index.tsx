@@ -107,8 +107,8 @@ const OrderPanel = () => {
         <div className={globalStyles.pageFrame2}>
           <div className={adminPanelstyles.title}>Order #{orderNumber}</div>
           <div
-            style={{ alignItems: "start", gap: "20px" }}
-            className={adminPanelstyles.operationFrame}
+            style={{ alignItems: "start", gap: "1rem" }}
+            className={styles.orderInformation}
           >
             <div style={{ width: "100%" }}>
               <div className={styles.cardFrame}>
@@ -151,7 +151,7 @@ const OrderPanel = () => {
               <div
                 className={styles.cardFrame}
                 style={{
-                  marginTop: "22px",
+                  marginTop: "1rem",
                 }}
               >
                 <div className={styles.cardTitle}>
@@ -220,13 +220,7 @@ const OrderPanel = () => {
                 </div>
               </div>
             </div>
-            <div
-              style={{
-                boxShadow: "rgba(0, 0, 0, 0.35) 0px 1px 4px",
-                flexShrink: "0",
-                borderRadius: "6px",
-              }}
-            >
+            <div className={styles.clientInformation}>
               <div style={{ padding: "16px 14px 8px 14px" }}>
                 <div style={{ fontSize: "1.25rem", fontWeight: "500" }}>
                   Client

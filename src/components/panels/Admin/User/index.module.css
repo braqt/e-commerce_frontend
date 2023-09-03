@@ -16,3 +16,18 @@
   font-weight: 600;
   margin-right: 6px;
 }
+
+.clientInformation {
+  display: grid;
+  grid-template-columns: 69% 30%;
+  gap: 1%;
+  margin-top: var(--marginTopAfterTitle);
+}
+
+@media (max-width: 719px) {
+  .clientInformation {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+  }
+}

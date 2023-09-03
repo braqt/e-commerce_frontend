@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import globalStyles from "../../../../index.module.css";
-import styles from "../index.module.css";
+import adminPanelStyles from "../index.module.css";
+import styles from "./index.module.css";
 
 import { useAuthentication } from "../../../../context/auth";
 import { Product } from "../../../../services/interfaces";
@@ -42,7 +43,7 @@ const ProductsPanel = ({ onClickCreateProduct }: Props) => {
 
   return (
     <div className={globalStyles.pageFrame2}>
-      <div className={styles.title}>Products</div>
+      <div className={adminPanelStyles.title}>Products</div>
       <div className={styles.operationFrame}>
         <div className={styles.filters}>
           <StyledInput value={name} onChange={onChangeName} />

@@ -54,15 +54,12 @@ const UserPanel = () => {
       {!loadingUser && user && (
         <div className={globalStyles.pageFrame2}>
           <div className={adminPanelstyles.title}>User</div>
-          <div
-            style={{ gap: "0.875rem" }}
-            className={adminPanelstyles.operationFrame}
-          >
+          <div className={styles.clientInformation}>
             <div
               style={{
                 padding: "18px 20px 20px",
-                width: "65%",
-                border: "1px solid #707070",
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 1px 4px",
+                borderRadius: "4px",
               }}
             >
               <div
@@ -111,15 +108,15 @@ const UserPanel = () => {
             <div
               style={{
                 padding: "18px 20px 20px",
-                width: "35%",
-                height: "235px",
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 1px 4px",
+                borderRadius: "4px",
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                border: "1px solid #707070",
               }}
             >
-              <div style={{ fontSize: "2rem", fontWeight: 500 }}>Contacto</div>
+              <div style={{ fontSize: "2rem", fontWeight: 500 }}>Contact</div>
               <div
                 style={{
                   display: "flex",

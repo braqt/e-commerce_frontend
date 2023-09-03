@@ -13,3 +13,27 @@
 .link {
   color: var(--cornFlowerBlue);
 }
+
+.orderInformation {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 1rem;
+  margin-top: var(--marginTopAfterTitle);
+}
+
+.clientInformation {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 4px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+@media (max-width: 800px) {
+  .orderInformation {
+    flex-direction: column;
+  }
+
+  .clientInformation {
+    width: 100%;
+  }
+}

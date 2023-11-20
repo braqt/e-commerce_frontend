@@ -20,6 +20,7 @@ const NavBar = () => {
 
   const onClickSignOut = () => {
     signOut();
+    navigate(SIGN_IN_PATH);
   };
 
   return (

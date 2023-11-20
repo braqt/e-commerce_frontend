@@ -62,10 +62,10 @@ const GuardedRoute = ({ children }: GuardedRouteProps) => {
 };
 
 const GuardedAdminRoute = ({ children }: GuardedRouteProps) => {
-  const { user, account, isLoading } = useAuthentication();
+  const { user, isLoading } = useAuthentication();
 
   if (!isLoading) {
-    if (user && user.emailVerified && account && account.isAdmin) {
+    if (user && user.emailVerified) {
       return children;
     } else {
       return <Navigate to={PAGE_NOT_FOUND_PATH} replace />;

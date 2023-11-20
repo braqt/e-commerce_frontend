@@ -15,13 +15,10 @@ import {
 import sanitizedConfig from "../../constants/config";
 import { IAuthContext } from "../../interfaces/context/firebase";
 import { AuthContext } from ".";
-import { getAccount } from "../../services/userService";
-import { Account } from "../../services/interfaces";
 import { SIGN_IN_PATH, ACCOUNT_PATH } from "../../navigation/pagePaths";
 
 export const AuthProvider = (props: { children: any }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [account, setAccount] = useState<Account | null>(null);
   const [firebaseAuthToken, setFirebaseAuthToken] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const auth = getAuth();
@@ -66,12 +63,9 @@ export const AuthProvider = (props: { children: any }) => {
       if (authUser) {
         setUser(authUser);
         const firebaseAuthToken = await authUser.getIdToken();
-        const account = await getAccount(firebaseAuthToken);
-        setAccount(account);
         setFirebaseAuthToken(firebaseAuthToken);
       } else {
         setUser(null);
-        setAccount(null);
         setFirebaseAuthToken("");
       }
       setIsLoading(false);
@@ -82,7 +76,6 @@ export const AuthProvider = (props: { children: any }) => {
 
   const contextValue: IAuthContext = {
     user,
-    account,
     firebaseAuthToken,
     isLoading,
     signIn,

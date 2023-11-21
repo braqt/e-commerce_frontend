@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import globalStyles from "../../index.module.css";
 import styles from "./index.module.css";
 
+import { MY_CART_PATH } from "../../navigation/pagePaths";
+
+import { centsToCurrencyNormalValue } from "../../utils/conversions";
+import { useCart } from "../../context/cart";
+import { useAuthentication } from "../../context/auth";
+
 import { getProduct } from "../../services";
 import { Product } from "../../services/interfaces";
-import { centsToCurrencyNormalValue } from "../../utils/conversions";
 
 import SpinnerLoader from "../../components/loaders/spinnerLoader";
 import DiscountTag from "../../components/ProductTags/DiscountTag";
-import { useCart } from "../../context/cart";
 
 const ProductPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useAuthentication();
   const [product, setProduct] = useState<Product>();
   const [isLoadingProduct, setIsLoadingProduct] = useState(true);
 
@@ -61,13 +67,19 @@ const ProductPage = () => {
                 </>
               )}
               <div>Available quantity: {product.quantity}</div>
-              <button
-                onClick={() => {
-                  addProductToCart(product, 1);
-                }}
-              >
-                add to the cart
-              </button>
+              <div style={{ marginTop: "30px" }}>
+                {user && (
+                  <button
+                    onClick={() => {
+                      addProductToCart(product, 1);
+                      navigate(MY_CART_PATH);
+                    }}
+                  >
+                    add to the cart
+                  </button>
+                )}
+                {!user && <div>sign in to add this product in the cart</div>}
+              </div>
             </div>
           </div>
           <div>

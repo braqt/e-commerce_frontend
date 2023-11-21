@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { centsToCurrencyNormalValue } from "../../utils/conversions";
+import { ADMIN_USER } from "../../navigation/pagePaths";
+
+import { AccountWithStatistics } from "../../services/interfaces";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -8,9 +14,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { AccountWithStatistics } from "../../services/interfaces";
-import { centsToCurrencyNormalValue } from "../../utils/conversions";
-import { ADMIN_USER } from "../../navigation/pagePaths";
 
 interface UserDataRow {
   idUser: string;
@@ -70,7 +73,12 @@ interface Props {
 }
 
 const UsersTable = ({ users }: Props) => {
+  const navigate = useNavigate();
   const [rows, setRows] = useState<UserDataRow[]>([]);
+
+  const onClickClientName = (idClient: string) => {
+    navigate(`${ADMIN_USER}/${idClient}`);
+  };
 
   useEffect(() => {
     let rows: UserDataRow[] = [];
@@ -107,14 +115,14 @@ const UsersTable = ({ users }: Props) => {
         <TableBody>
           {rows.map((row) => (
             <StyledTableRow key={row.email}>
-              <StyledTableCell align="left">
-                <a
-                  href={`${ADMIN_USER}/${row.idUser}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {`${row.name} ${row.lastName}`}
-                </a>
+              <StyledTableCell
+                align="left"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  onClickClientName(row.idUser);
+                }}
+              >
+                {`${row.name} ${row.lastName}`}
               </StyledTableCell>
               <StyledTableCell align="left">{row.email}</StyledTableCell>
               <StyledTableCell align="left">{row.phone}</StyledTableCell>

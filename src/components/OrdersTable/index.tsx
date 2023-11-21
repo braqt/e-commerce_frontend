@@ -110,8 +110,12 @@ const OrdersTable = ({ orders }: Props) => {
     setRows(rows);
   }, []);
 
-  const onClickOrder = (idOrder: number) => {
+  const onClickOrderNumber = (idOrder: number) => {
     navigate(`${ADMIN_ORDER}/${idOrder}`);
+  };
+
+  const onClickClientName = (idClient: string) => {
+    navigate(`${ADMIN_USER}/${idClient}`);
   };
 
   return (
@@ -135,19 +139,19 @@ const OrdersTable = ({ orders }: Props) => {
                 align="left"
                 scope="row"
                 style={{ cursor: "pointer" }}
-                onClick={() => onClickOrder(row.orderNumber)}
+                onClick={() => onClickOrderNumber(row.orderNumber)}
               >
                 #{row.orderNumber}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {timestampToDateWithFormat(row.createdAt)}
               </StyledTableCell>
-              <StyledTableCell align="left">
-                <a
-                  href={`${ADMIN_USER}/${row.idUser}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >{`${row.name} ${row.lastName}`}</a>
+              <StyledTableCell
+                align="left"
+                style={{ cursor: "pointer" }}
+                onClick={() => onClickClientName(row.idUser)}
+              >
+                {`${row.name} ${row.lastName}`}
               </StyledTableCell>
               <StyledTableCell align="left">
                 Bs {centsToCurrencyNormalValue(row.totalPriceInCents)}

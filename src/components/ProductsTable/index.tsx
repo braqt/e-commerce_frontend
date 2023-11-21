@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./index.module.css";
+
+import {
+  centsToCurrencyNormalValue,
+  timestampToDateWithFormat,
+} from "../../utils/conversions";
+import { PRODUCT_PATH } from "../../navigation/pagePaths";
+
+import { Product } from "../../services/interfaces";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -10,13 +19,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Product } from "../../services/interfaces";
-import {
-  centsToCurrencyNormalValue,
-  timestampToDateWithFormat,
-} from "../../utils/conversions";
 
 interface ProductDataRow {
+  id: string;
   imageUrl: string;
   name: string;
   priceInCents: number;
@@ -47,6 +52,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function createData(
+  id: string,
   imageUrl: string,
   name: string,
   priceInCents: number,
@@ -56,6 +62,7 @@ function createData(
   createdAt: string
 ) {
   return {
+    id,
     imageUrl,
     name,
     priceInCents,
@@ -71,6 +78,7 @@ interface Props {
 }
 
 const ProductsTable = ({ products }: Props) => {
+  const navigate = useNavigate();
   const [rows, setRows] = useState<ProductDataRow[]>([]);
 
   useEffect(() => {
@@ -78,6 +86,7 @@ const ProductsTable = ({ products }: Props) => {
     for (let product of products) {
       rows.push(
         createData(
+          product._id,
           product.imagesUrl[0],
           product.name,
           product.priceInCents,
@@ -90,6 +99,10 @@ const ProductsTable = ({ products }: Props) => {
     }
     setRows(rows);
   }, []);
+
+  const onClickProduct = (idProduct: string) => {
+    navigate(`${PRODUCT_PATH}/${idProduct}`);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -112,7 +125,13 @@ const ProductsTable = ({ products }: Props) => {
               <StyledTableCell align="left">
                 <img className={styles.image} src={row.imageUrl} />
               </StyledTableCell>
-              <StyledTableCell align="left">{row.name}</StyledTableCell>
+              <StyledTableCell
+                align="left"
+                style={{ cursor: "pointer" }}
+                onClick={() => onClickProduct(row.id)}
+              >
+                {row.name}
+              </StyledTableCell>
               <StyledTableCell align="left">
                 Bs {centsToCurrencyNormalValue(row.priceInCents)}
               </StyledTableCell>

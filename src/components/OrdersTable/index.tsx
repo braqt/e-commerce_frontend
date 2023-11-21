@@ -1,4 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  centsToCurrencyNormalValue,
+  orderStatusToString,
+  paymentMethodToString,
+  paymentStatusToString,
+  timestampToDateWithFormat,
+} from "../../utils/conversions";
+import {
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+} from "../../interfaces/context";
+import { ADMIN_ORDER, ADMIN_USER } from "../../navigation/pagePaths";
+
+import { Order } from "../../services/interfaces";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -8,22 +25,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {
-  OrderStatus,
-  PaymentMethod,
-  PaymentStatus,
-} from "../../interfaces/context";
-import { Order } from "../../services/interfaces";
-import {
-  centsToCurrencyNormalValue,
-  orderStatusToString,
-  paymentMethodToString,
-  paymentStatusToString,
-  timestampToDateWithFormat,
-} from "../../utils/conversions";
-import { ADMIN_USER } from "../../navigation/pagePaths";
 
-interface ProductDataRow {
+interface OrderDataRow {
   idUser: string;
   orderNumber: number;
   createdAt: string;
@@ -84,10 +87,11 @@ interface Props {
 }
 
 const OrdersTable = ({ orders }: Props) => {
-  const [rows, setRows] = useState<ProductDataRow[]>([]);
+  const navigate = useNavigate();
+  const [rows, setRows] = useState<OrderDataRow[]>([]);
 
   useEffect(() => {
-    let rows: ProductDataRow[] = [];
+    let rows: OrderDataRow[] = [];
     for (let order of orders) {
       rows.push(
         createData(
@@ -106,6 +110,10 @@ const OrdersTable = ({ orders }: Props) => {
     setRows(rows);
   }, []);
 
+  const onClickOrder = (idOrder: number) => {
+    navigate(`${ADMIN_ORDER}/${idOrder}`);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -123,7 +131,12 @@ const OrdersTable = ({ orders }: Props) => {
         <TableBody>
           {rows.map((row) => (
             <StyledTableRow key={row.orderNumber}>
-              <StyledTableCell align="left" scope="row">
+              <StyledTableCell
+                align="left"
+                scope="row"
+                style={{ cursor: "pointer" }}
+                onClick={() => onClickOrder(row.orderNumber)}
+              >
                 #{row.orderNumber}
               </StyledTableCell>
               <StyledTableCell align="left">

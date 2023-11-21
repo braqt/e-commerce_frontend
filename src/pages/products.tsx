@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "../index.module.css";
 
-import { getProducts } from "../services";
 import { Product } from "../services/interfaces";
+
+import { getProducts } from "../services";
+
 import ProductsExplorer from "../components/ProductsExplorer";
 import SpinnerLoader from "../components/loaders/spinnerLoader";
 
@@ -31,7 +33,7 @@ const ProductsPage = () => {
       {loadingProducts && <SpinnerLoader />}
       {!loadingProducts && (
         <>
-          <div>Polleras</div>
+          <div>Products</div>
           <ProductsExplorer products={products} />
         </>
       )}

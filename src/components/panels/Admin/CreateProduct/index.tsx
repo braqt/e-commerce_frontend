@@ -102,6 +102,7 @@ const CreateProductPanel = ({ onClickBack, onCreateProduct }: Props) => {
             required
             name="images"
             type="file"
+            accept="image/png, image/jpeg"
             multiple
           />
         </div>

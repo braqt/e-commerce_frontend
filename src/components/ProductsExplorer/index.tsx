@@ -19,7 +19,8 @@ const ProductsExplorer = ({ products }: Props) => {
           discount={product.discountPercentage}
           image={product.imagesUrl[0]}
           name={product.name}
-          price={centsToCurrencyNormalValue(product.finalPriceInCents)}
+          price={centsToCurrencyNormalValue(product.priceInCents)}
+          finalPrice={centsToCurrencyNormalValue(product.finalPriceInCents)}
         />
       ))}
     </div>

@@ -11,9 +11,17 @@ interface Props {
   image: string;
   name: string;
   price: number;
+  finalPrice: number;
 }
 
-const ProductCard = ({ id, discount, image, name, price }: Props) => {
+const ProductCard = ({
+  id,
+  discount,
+  image,
+  name,
+  price,
+  finalPrice,
+}: Props) => {
   return (
     <div className={styles.productCardFrame}>
       {discount > 0 && (
@@ -29,7 +37,9 @@ const ProductCard = ({ id, discount, image, name, price }: Props) => {
       )}
       <img src={image} className={styles.productImage} />
       <div style={{ marginTop: "10px" }}>
-        {discount > 0 && <div className={styles.discountPrice}>Bs {price}</div>}
+        {discount > 0 && (
+          <div className={styles.discountPrice}>Bs {finalPrice}</div>
+        )}
         <div className={styles.productPrice}>Bs {price}</div>
         <a className={styles.productName} href={`${PRODUCT_PATH}/${id}`}>
           {name}

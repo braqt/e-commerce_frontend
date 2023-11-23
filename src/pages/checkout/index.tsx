@@ -16,6 +16,7 @@ import StepLabel from "@mui/material/StepLabel";
 import HowToPayTheProduct from "../../components/panels/Checkout/HowToPayTheProduct";
 import ConfirmProductsInCart from "../../components/panels/Checkout/ConfirmProductsInCart";
 import OrderConfirmedSuccessfully from "../../components/panels/Checkout/OrderConfirmedSuccessfully";
+import SpinnerLoader from "../../components/loaders/spinnerLoader";
 
 const steps = ["How to pay for products?", "Confirm Order"];
 
@@ -27,6 +28,8 @@ const CheckoutPage = () => {
     useState(false);
   const { user } = useAuthentication();
   const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
+  const [loadingProductsInCart, setLoadingProductsInCart] =
+    useState<boolean>(true);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -75,6 +78,7 @@ const CheckoutPage = () => {
         productsInCart.push({ product, quantity: productInLS.quantity });
       }
       setProductsInCart(productsInCart);
+      setLoadingProductsInCart(false);
     }
   };
 
@@ -85,41 +89,48 @@ const CheckoutPage = () => {
   return (
     <div className={globalStyles.pageFrame}>
       <div>My Checkout</div>
-      {productsOrderedWithSuccess && (
-        <div style={{ marginTop: "60px" }}>
-          <OrderConfirmedSuccessfully
-            productsInCart={productsInCart}
-            onClickGoToMyOrdersButton={onClickGoToMyOrdersButton}
-          />
-        </div>
-      )}
-      {!productsOrderedWithSuccess && (
+      {loadingProductsInCart && <SpinnerLoader />}
+      {!loadingProductsInCart && (
         <>
-          {productsInCart.length > 0 && (
+          {productsOrderedWithSuccess && (
+            <div style={{ marginTop: "60px" }}>
+              <OrderConfirmedSuccessfully
+                productsInCart={productsInCart}
+                onClickGoToMyOrdersButton={onClickGoToMyOrdersButton}
+              />
+            </div>
+          )}
+          {!productsOrderedWithSuccess && (
             <>
-              <Stepper
-                activeStep={activeStep}
-                style={{ maxWidth: "1000px", margin: "50px auto 0px auto" }}
-              >
-                {steps.map((label) => {
-                  const stepProps: { completed?: boolean } = {};
-                  const labelProps: {
-                    optional?: React.ReactNode;
-                  } = {};
+              {productsInCart.length > 0 && (
+                <>
+                  <Stepper
+                    activeStep={activeStep}
+                    style={{ maxWidth: "1000px", margin: "50px auto 0px auto" }}
+                  >
+                    {steps.map((label) => {
+                      const stepProps: { completed?: boolean } = {};
+                      const labelProps: {
+                        optional?: React.ReactNode;
+                      } = {};
 
-                  return (
-                    <Step key={label} {...stepProps}>
-                      <StepLabel {...labelProps}>{label}</StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
-              <div style={{ marginTop: "55px" }}>
-                {getStepContent(activeStep)}
-              </div>
+                      return (
+                        <Step key={label} {...stepProps}>
+                          <StepLabel {...labelProps}>{label}</StepLabel>
+                        </Step>
+                      );
+                    })}
+                  </Stepper>
+                  <div style={{ marginTop: "55px" }}>
+                    {getStepContent(activeStep)}
+                  </div>
+                </>
+              )}
+              {productsInCart.length == 0 && (
+                <div>No products in your cart</div>
+              )}
             </>
           )}
-          {productsInCart.length == 0 && <div>No products in your cart</div>}
         </>
       )}
     </div>

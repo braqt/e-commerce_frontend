@@ -10,6 +10,7 @@ import { getTotalFromProductsInCart } from "../../utils/cart";
 import { IProductInCart } from "../../interfaces/context";
 import ProductInCart from "../../components/ProductInCart";
 import CartTotal from "../../components/CartTotal";
+import SpinnerLoader from "../../components/loaders/spinnerLoader";
 
 const MyCart = () => {
   const {
@@ -19,6 +20,8 @@ const MyCart = () => {
     removeProductFromCart,
   } = useCart();
   const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
+  const [loadingProductsInCart, setLoadingProductsInCart] =
+    useState<boolean>(true);
   const navigate = useNavigate();
 
   const onClickPlusButton = (productInCart: IProductInCart) => {
@@ -77,6 +80,7 @@ const MyCart = () => {
         productsInCart.push({ product, quantity: productInLS.quantity });
       }
       setProductsInCart(productsInCart);
+      setLoadingProductsInCart(false);
     }
   };
 
@@ -87,35 +91,42 @@ const MyCart = () => {
   return (
     <div className={globalStyles.pageFrame}>
       <div>MyCart</div>
-      <div style={{ marginTop: "60px" }}>
-        {productsInCart.map((productInCart) => (
-          <ProductInCart
-            key={productInCart.product._id}
-            image={productInCart.product.imagesUrl[0]}
-            name={productInCart.product.name}
-            quantity={productInCart.quantity}
-            quantityAvailable={productInCart.product.quantity}
-            priceInCents={productInCart.product.finalPriceInCents}
-            onClickPlusButton={() => {
-              onClickPlusButton(productInCart);
-            }}
-            onClickMinusButton={() => {
-              onClickMinusButton(productInCart);
-            }}
-            onClickDeleteButton={() => {
-              onClickDeleteButton(productInCart);
-            }}
-          />
-        ))}
-        {productsInCart.length == 0 && <div>No products in your cart</div>}
-      </div>
-      {productsInCart.length > 0 && (
-        <div>
-          <CartTotal totalPrice={getTotalFromProductsInCart(productsInCart)} />
-          <div style={{ marginTop: "45px", textAlign: "center" }}>
-            <button onClick={onClickOrderProducts}>order products</button>
+      {loadingProductsInCart && <SpinnerLoader />}
+      {!loadingProductsInCart && (
+        <>
+          <div style={{ marginTop: "60px" }}>
+            {productsInCart.map((productInCart) => (
+              <ProductInCart
+                key={productInCart.product._id}
+                image={productInCart.product.imagesUrl[0]}
+                name={productInCart.product.name}
+                quantity={productInCart.quantity}
+                quantityAvailable={productInCart.product.quantity}
+                priceInCents={productInCart.product.finalPriceInCents}
+                onClickPlusButton={() => {
+                  onClickPlusButton(productInCart);
+                }}
+                onClickMinusButton={() => {
+                  onClickMinusButton(productInCart);
+                }}
+                onClickDeleteButton={() => {
+                  onClickDeleteButton(productInCart);
+                }}
+              />
+            ))}
+            {productsInCart.length == 0 && <div>No products in your cart</div>}
           </div>
-        </div>
+          {productsInCart.length > 0 && (
+            <div>
+              <CartTotal
+                totalPrice={getTotalFromProductsInCart(productsInCart)}
+              />
+              <div style={{ marginTop: "45px", textAlign: "center" }}>
+                <button onClick={onClickOrderProducts}>order products</button>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -72,12 +72,17 @@ export const CartProvider = (props: { children: any }) => {
     setProductsInLocalStorage(newProductsInCartFromLocalStorage);
   };
 
+  const removeAllProductsFromCart = () => {
+    localStorage.removeItem(CART_KEY);
+  };
+
   const contextValue: ICartContext = {
     getProductFromLocalStorage,
     getProductsFromLocalStorage,
     addProductToCart,
     modifyProductQuantityFromCart,
     removeProductFromCart,
+    removeAllProductsFromCart,
   };
 
   return (

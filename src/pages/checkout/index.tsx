@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import globalStyles from "../../index.module.css";
 
-import { HOME_PATH } from "../../navigation/pagePaths";
+import { MY_ORDERS_PATH } from "../../navigation/pagePaths";
 import { useCart } from "../../context/cart";
 import { useAuthentication } from "../../context/auth";
 import { IProductInCart } from "../../interfaces/context";
@@ -21,7 +21,7 @@ const steps = ["How to pay for products?", "Confirm Order"];
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { getProductsFromLocalStorage } = useCart();
+  const { getProductsFromLocalStorage, removeAllProductsFromCart } = useCart();
   const [activeStep, setActiveStep] = useState(0);
   const [productsOrderedWithSuccess, setProductsOrderedWithSuccess] =
     useState(false);
@@ -40,6 +40,7 @@ const CheckoutPage = () => {
     if (user) {
       const authToken = await user.getIdToken();
       orderProducts(productsInCart, authToken);
+      removeAllProductsFromCart();
       setProductsOrderedWithSuccess(true);
     }
   };
@@ -62,7 +63,7 @@ const CheckoutPage = () => {
   };
 
   const onClickGoToMyOrdersButton = () => {
-    navigate(HOME_PATH);
+    navigate(MY_ORDERS_PATH);
   };
 
   const fetchProductsInCart = async () => {

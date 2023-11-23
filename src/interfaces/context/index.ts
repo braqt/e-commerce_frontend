@@ -10,6 +10,7 @@ export interface ICartContext {
     productInCartLS: ProductInCartInLocalStorage
   ) => void;
   removeProductFromCart: (idProductInCart: string) => void;
+  removeAllProductsFromCart: () => void;
 }
 
 export interface ProductInCartInLocalStorage {

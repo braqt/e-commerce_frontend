@@ -107,6 +107,7 @@ const MyCart = () => {
             }}
           />
         ))}
+        {productsInCart.length == 0 && <div>No products in your cart</div>}
       </div>
       {productsInCart.length > 0 && (
         <div>

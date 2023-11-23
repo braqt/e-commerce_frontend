@@ -1,4 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+import { MY_CART_PATH } from "../../../navigation/pagePaths";
 
 import LeafletMapStoreLocation from "../../leafletMapStoreLocation";
 
@@ -7,6 +10,12 @@ interface Props {
 }
 
 const HowToPayTheProduct = ({ onClickContinueButton }: Props) => {
+  const navigate = useNavigate();
+
+  const onClickCancel = () => {
+    navigate(MY_CART_PATH);
+  };
+
   return (
     <div>
       <div>
@@ -28,6 +37,9 @@ const HowToPayTheProduct = ({ onClickContinueButton }: Props) => {
         <LeafletMapStoreLocation />
       </div>
       <div style={{ margin: "45px 0px", textAlign: "center" }}>
+        <button style={{ marginRight: "10px" }} onClick={onClickCancel}>
+          cancel
+        </button>
         <button onClick={onClickContinueButton}>continue</button>
       </div>
     </div>

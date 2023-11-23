@@ -95,24 +95,31 @@ const CheckoutPage = () => {
       )}
       {!productsOrderedWithSuccess && (
         <>
-          <Stepper
-            activeStep={activeStep}
-            style={{ maxWidth: "1000px", margin: "50px auto 0px auto" }}
-          >
-            {steps.map((label) => {
-              const stepProps: { completed?: boolean } = {};
-              const labelProps: {
-                optional?: React.ReactNode;
-              } = {};
+          {productsInCart.length > 0 && (
+            <>
+              <Stepper
+                activeStep={activeStep}
+                style={{ maxWidth: "1000px", margin: "50px auto 0px auto" }}
+              >
+                {steps.map((label) => {
+                  const stepProps: { completed?: boolean } = {};
+                  const labelProps: {
+                    optional?: React.ReactNode;
+                  } = {};
 
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-          <div style={{ marginTop: "55px" }}>{getStepContent(activeStep)}</div>
+                  return (
+                    <Step key={label} {...stepProps}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+              <div style={{ marginTop: "55px" }}>
+                {getStepContent(activeStep)}
+              </div>
+            </>
+          )}
+          {productsInCart.length == 0 && <div>No products in your cart</div>}
         </>
       )}
     </div>

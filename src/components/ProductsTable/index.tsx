@@ -27,7 +27,6 @@ interface ProductDataRow {
   priceInCents: number;
   discountPercentage: number;
   finalPriceInCents: number;
-  category: string;
   createdAt: string;
 }
 
@@ -58,7 +57,6 @@ function createData(
   priceInCents: number,
   discountPercentage: number,
   finalPriceInCents: number,
-  category: string,
   createdAt: string
 ) {
   return {
@@ -68,7 +66,6 @@ function createData(
     priceInCents,
     discountPercentage,
     finalPriceInCents,
-    category,
     createdAt,
   };
 }
@@ -92,7 +89,6 @@ const ProductsTable = ({ products }: Props) => {
           product.priceInCents,
           product.discountPercentage,
           product.finalPriceInCents,
-          product.category,
           product.createdAt
         )
       );
@@ -114,7 +110,6 @@ const ProductsTable = ({ products }: Props) => {
             <StyledTableCell align="left">Price</StyledTableCell>
             <StyledTableCell align="left">Discount</StyledTableCell>
             <StyledTableCell align="left">Final Price</StyledTableCell>
-            <StyledTableCell align="left">Category</StyledTableCell>
             <StyledTableCell align="left">Posted On</StyledTableCell>
             <StyledTableCell align="left">Action</StyledTableCell>
           </TableRow>
@@ -139,7 +134,6 @@ const ProductsTable = ({ products }: Props) => {
               <StyledTableCell align="left">
                 Bs {centsToCurrencyNormalValue(row.finalPriceInCents)}
               </StyledTableCell>
-              <StyledTableCell align="left">{row.category}</StyledTableCell>
               <StyledTableCell align="left">
                 {timestampToDateWithFormat(row.createdAt)}
               </StyledTableCell>

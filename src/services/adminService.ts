@@ -193,7 +193,6 @@ export const createProduct = async (
   authToken: string,
   name: string,
   description: string,
-  category: string,
   price: string,
   discountPercentage: string,
   quantity: string,
@@ -203,7 +202,6 @@ export const createProduct = async (
 
   formData.append("name", name);
   formData.append("description", description);
-  formData.append("category", category);
   formData.append("price", price);
   formData.append("discountPercentage", discountPercentage);
   formData.append("quantity", quantity);

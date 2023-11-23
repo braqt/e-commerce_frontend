@@ -1,15 +1,17 @@
 import React from "react";
 
-import { useCart } from "../../../context/cart";
 import ProductInCartForConfirmation from "../../ProductInCart/ProductInCartForConfirmation";
+import { IProductInCart } from "../../../interfaces/context";
 
 interface Props {
   onClickGoToMyOrdersButton: () => void;
+  productsInCart: IProductInCart[];
 }
 
-const OrderConfirmedSuccessfully = ({ onClickGoToMyOrdersButton }: Props) => {
-  const { productsInCart } = useCart();
-
+const OrderConfirmedSuccessfully = ({
+  onClickGoToMyOrdersButton,
+  productsInCart,
+}: Props) => {
   return (
     <>
       <div style={{ textAlign: "center", marginBottom: "65px" }}>
@@ -19,6 +21,7 @@ const OrderConfirmedSuccessfully = ({ onClickGoToMyOrdersButton }: Props) => {
       <div>
         {productsInCart.map((productInCart) => (
           <ProductInCartForConfirmation
+            key={productInCart.product._id}
             image={productInCart.product.imagesUrl[0]}
             name={productInCart.product.name}
             priceInCents={productInCart.product.priceInCents}

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import globalStyles from "../../index.module.css";
 
+import { getProduct } from "../../services";
 import { useCart } from "../../context/cart";
 import { CHECKOUT_PATH } from "../../navigation/pagePaths";
 import { getTotalFromProductsInCart } from "../../utils/cart";
@@ -12,37 +13,76 @@ import CartTotal from "../../components/CartTotal";
 
 const MyCart = () => {
   const {
-    productsInCart,
+    getProductFromLocalStorage,
+    getProductsFromLocalStorage,
     modifyProductQuantityFromCart,
     removeProductFromCart,
   } = useCart();
+  const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
   const navigate = useNavigate();
 
   const onClickPlusButton = (productInCart: IProductInCart) => {
-    if (productInCart.quantity + 1 <= productInCart.product.quantity) {
+    const productFromLS = getProductFromLocalStorage(productInCart);
+    if (productFromLS.quantity + 1 <= productInCart.product.quantity) {
       modifyProductQuantityFromCart({
-        ...productInCart,
-        quantity: productInCart.quantity + 1,
+        ...productFromLS,
+        quantity: productFromLS.quantity + 1,
       });
+      let newProductsInCart = [...productsInCart];
+      for (let p of newProductsInCart) {
+        if (p.product._id == productFromLS.id) {
+          p.quantity = productFromLS.quantity + 1;
+        }
+      }
+      setProductsInCart(newProductsInCart);
     }
   };
 
   const onClickMinusButton = (productInCart: IProductInCart) => {
-    if (productInCart.quantity - 1 > 0) {
+    const productFromLS = getProductFromLocalStorage(productInCart);
+    if (productFromLS.quantity - 1 > 0) {
       modifyProductQuantityFromCart({
-        ...productInCart,
-        quantity: productInCart.quantity - 1,
+        ...productFromLS,
+        quantity: productFromLS.quantity - 1,
       });
+      let newProductsInCart = [...productsInCart];
+      for (let p of newProductsInCart) {
+        if (p.product._id == productFromLS.id) {
+          p.quantity = productFromLS.quantity - 1;
+        }
+      }
+      setProductsInCart(newProductsInCart);
     }
   };
 
   const onClickDeleteButton = (productInCart: IProductInCart) => {
-    removeProductFromCart(productInCart);
+    removeProductFromCart(productInCart.product._id);
+    let newProductsInCart = [...productsInCart];
+    newProductsInCart = newProductsInCart.filter(
+      (p) => p.product._id != productInCart.product._id
+    );
+    setProductsInCart(newProductsInCart);
   };
 
   const onClickOrderProducts = () => {
     navigate(CHECKOUT_PATH);
   };
+
+  const fetchProductsInCart = async () => {
+    const productsInLocalStorage = getProductsFromLocalStorage();
+    if (productsInLocalStorage.length > 0) {
+      let productsInCart: IProductInCart[] = [];
+      for (let productInLS of productsInLocalStorage) {
+        let product = await getProduct(productInLS.id);
+        productsInCart.push({ product, quantity: productInLS.quantity });
+      }
+      setProductsInCart(productsInCart);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductsInCart();
+  }, []);
 
   return (
     <div className={globalStyles.pageFrame}>

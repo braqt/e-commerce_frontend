@@ -1,10 +1,15 @@
 import { Product } from "../../services/interfaces";
 
 export interface ICartContext {
-  productsInCart: IProductInCart[];
+  getProductFromLocalStorage: (
+    productInCart: IProductInCart
+  ) => ProductInCartInLocalStorage;
+  getProductsFromLocalStorage: () => ProductInCartInLocalStorage[];
   addProductToCart: (product: Product, quantity: number) => void;
-  modifyProductQuantityFromCart: (productInCart: IProductInCart) => void;
-  removeProductFromCart: (productInCart: IProductInCart) => void;
+  modifyProductQuantityFromCart: (
+    productInCartLS: ProductInCartInLocalStorage
+  ) => void;
+  removeProductFromCart: (idProductInCart: string) => void;
 }
 
 export interface ProductInCartInLocalStorage {

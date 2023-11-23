@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import globalStyles from "../../index.module.css";
-import { useNavigate } from "react-router-dom";
+
+import { HOME_PATH } from "../../navigation/pagePaths";
+import { useCart } from "../../context/cart";
+import { useAuthentication } from "../../context/auth";
+import { IProductInCart } from "../../interfaces/context";
+
+import { getProduct, orderProducts } from "../../services";
 
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-
-import { useCart } from "../../context/cart";
-import { useAuthentication } from "../../context/auth";
-import { orderProducts } from "../../services";
-import { HOME_PATH } from "../../navigation/pagePaths";
 import HowToPayTheProduct from "../../components/panels/Checkout/HowToPayTheProduct";
 import ConfirmProductsInCart from "../../components/panels/Checkout/ConfirmProductsInCart";
 import OrderConfirmedSuccessfully from "../../components/panels/Checkout/OrderConfirmedSuccessfully";
@@ -19,12 +21,12 @@ const steps = ["How to pay for products?", "Confirm Order"];
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-
+  const { getProductsFromLocalStorage } = useCart();
   const [activeStep, setActiveStep] = useState(0);
   const [productsOrderedWithSuccess, setProductsOrderedWithSuccess] =
     useState(false);
   const { user } = useAuthentication();
-  const { productsInCart } = useCart();
+  const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -49,6 +51,7 @@ const CheckoutPage = () => {
       case 1:
         return (
           <ConfirmProductsInCart
+            productsInCart={productsInCart}
             onClickBackButton={handleBack}
             onClickConfirmationButton={onClickConfirmationButton}
           />
@@ -62,12 +65,29 @@ const CheckoutPage = () => {
     navigate(HOME_PATH);
   };
 
+  const fetchProductsInCart = async () => {
+    const productsInLocalStorage = getProductsFromLocalStorage();
+    if (productsInLocalStorage.length > 0) {
+      let productsInCart: IProductInCart[] = [];
+      for (let productInLS of productsInLocalStorage) {
+        let product = await getProduct(productInLS.id);
+        productsInCart.push({ product, quantity: productInLS.quantity });
+      }
+      setProductsInCart(productsInCart);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductsInCart();
+  }, []);
+
   return (
     <div className={globalStyles.pageFrame}>
       <div>My Checkout</div>
       {productsOrderedWithSuccess && (
         <div style={{ marginTop: "60px" }}>
           <OrderConfirmedSuccessfully
+            productsInCart={productsInCart}
             onClickGoToMyOrdersButton={onClickGoToMyOrdersButton}
           />
         </div>

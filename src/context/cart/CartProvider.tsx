@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import {
   ICartContext,
@@ -7,13 +7,10 @@ import {
 } from "../../interfaces/context";
 import { Product } from "../../services/interfaces";
 import { CartContext } from ".";
-import { getProduct } from "../../services";
 
 const CART_KEY = "cart";
 
 export const CartProvider = (props: { children: any }) => {
-  const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
-
   const getProductsFromLocalStorage = (): ProductInCartInLocalStorage[] => {
     const cartItem = localStorage.getItem(CART_KEY);
     if (cartItem) {
@@ -21,6 +18,16 @@ export const CartProvider = (props: { children: any }) => {
     } else {
       return [];
     }
+  };
+
+  const getProductFromLocalStorage = (productInCart: IProductInCart) => {
+    const productsFromLS = getProductsFromLocalStorage();
+    for (let productFromLS of productsFromLS) {
+      if (productFromLS.id == productInCart.product._id) {
+        return productFromLS;
+      }
+    }
+    throw new Error("Product not found in local storgae");
   };
 
   const setProductsInLocalStorage = (
@@ -41,62 +48,33 @@ export const CartProvider = (props: { children: any }) => {
     };
     productsInCartFromLocalStorage.push(productInCartForLocalStorage);
     setProductsInLocalStorage(productsInCartFromLocalStorage);
-
-    setProductsInCart((prevState) => [...prevState, { product, quantity }]);
   };
 
-  const modifyProductQuantityFromCart = (productInCart: IProductInCart) => {
+  const modifyProductQuantityFromCart = (
+    productInCart: ProductInCartInLocalStorage
+  ) => {
     const productsInCartFromLocalStorage: ProductInCartInLocalStorage[] =
       getProductsFromLocalStorage();
-    const newProductsInCart = [...productsInCart];
     for (let p of productsInCartFromLocalStorage) {
-      if (p.id == productInCart.product._id) {
+      if (p.id == productInCart.id) {
         p.quantity = productInCart.quantity;
         break;
       }
     }
-    for (let p of newProductsInCart) {
-      if (p.product._id == productInCart.product._id) {
-        p.quantity = productInCart.quantity;
-      }
-    }
-    setProductsInCart(newProductsInCart);
     setProductsInLocalStorage(productsInCartFromLocalStorage);
   };
 
-  const removeProductFromCart = (productInCart: IProductInCart) => {
+  const removeProductFromCart = (idProductInCart: string) => {
     const productsInCartFromLocalStorage: ProductInCartInLocalStorage[] =
       getProductsFromLocalStorage();
-    let newProductsInCart = [...productsInCart];
     const newProductsInCartFromLocalStorage =
-      productsInCartFromLocalStorage.filter(
-        (p) => p.id != productInCart.product._id
-      );
-    newProductsInCart = newProductsInCart.filter(
-      (p) => p.product._id != productInCart.product._id
-    );
-    setProductsInCart([...newProductsInCart]);
+      productsInCartFromLocalStorage.filter((p) => p.id != idProductInCart);
     setProductsInLocalStorage(newProductsInCartFromLocalStorage);
   };
 
-  const fetchProductsInCart = async () => {
-    const productsInLocalStorage = getProductsFromLocalStorage();
-    if (productsInLocalStorage.length > 0) {
-      let productsInCart: IProductInCart[] = [];
-      for (let productInLS of productsInLocalStorage) {
-        let product = await getProduct(productInLS.id);
-        productsInCart.push({ product, quantity: productInLS.quantity });
-      }
-      setProductsInCart(productsInCart);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductsInCart();
-  }, []);
-
   const contextValue: ICartContext = {
-    productsInCart,
+    getProductFromLocalStorage,
+    getProductsFromLocalStorage,
     addProductToCart,
     modifyProductQuantityFromCart,
     removeProductFromCart,

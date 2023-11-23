@@ -1,21 +1,22 @@
 import React from "react";
 
-import { useCart } from "../../../context/cart";
+import { IProductInCart } from "../../../interfaces/context";
 import { getTotalFromProductsInCart } from "../../../utils/cart";
+
 import ProductInCartForConfirmation from "../../ProductInCart/ProductInCartForConfirmation";
 import CartTotal from "../../CartTotal";
 
 interface Props {
+  productsInCart: IProductInCart[];
   onClickBackButton: () => void;
   onClickConfirmationButton: () => void;
 }
 
 const ConfirmProductsInCart = ({
+  productsInCart,
   onClickBackButton,
   onClickConfirmationButton,
 }: Props) => {
-  const { productsInCart } = useCart();
-
   return (
     <div>
       {productsInCart.map((productInCart) => (

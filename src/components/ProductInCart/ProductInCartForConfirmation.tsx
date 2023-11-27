@@ -2,6 +2,8 @@ import React from "react";
 
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../constants";
+
 import { centsToCurrencyNormalValue } from "../../utils/conversions";
 
 interface Props {
@@ -42,12 +44,15 @@ const ProductInCartForConfirmation = ({
       </div>
       <div>
         <div className={styles.productInCartConfirmationQuantityAvailable}>
-          <div>Bs {centsToCurrencyNormalValue(priceInCents)}</div>
+          <div>
+            {CURRENCY_SYMBOL} {centsToCurrencyNormalValue(priceInCents)}
+          </div>
           <div>x</div>
           <div>{quantity}</div>
         </div>
         <div className={styles.productInCartTotalPrice}>
-          Bs {centsToCurrencyNormalValue(priceInCents * quantity)}
+          {CURRENCY_SYMBOL}{" "}
+          {centsToCurrencyNormalValue(priceInCents * quantity)}
         </div>
       </div>
     </div>

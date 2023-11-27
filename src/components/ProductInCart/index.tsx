@@ -1,7 +1,10 @@
 import React from "react";
+import { BiPlus, BiMinus } from "react-icons/bi";
 
 import styles from "./index.module.css";
-import { BiPlus, BiMinus } from "react-icons/bi";
+
+import { CURRENCY_SYMBOL } from "../../constants";
+
 import { centsToCurrencyNormalValue } from "../../utils/conversions";
 
 interface Props {
@@ -53,7 +56,8 @@ const ProductInCart = ({
           </div>
         </div>
         <div className={styles.productInCartTotalPrice}>
-          Bs {centsToCurrencyNormalValue(priceInCents * quantity)}
+          {CURRENCY_SYMBOL}{" "}
+          {centsToCurrencyNormalValue(priceInCents * quantity)}
         </div>
       </div>
     </div>

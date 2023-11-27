@@ -2,6 +2,8 @@ import React from "react";
 
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../constants";
+
 import DiscountTag from "../ProductTags/DiscountTag";
 import { PRODUCT_PATH } from "../../navigation/pagePaths";
 
@@ -38,9 +40,13 @@ const ProductCard = ({
       <img src={image} className={styles.productImage} />
       <div style={{ marginTop: "10px" }}>
         {discount > 0 && (
-          <div className={styles.discountPrice}>Bs {finalPrice}</div>
+          <div className={styles.discountPrice}>
+            {CURRENCY_SYMBOL} {finalPrice}
+          </div>
         )}
-        <div className={styles.productPrice}>Bs {price}</div>
+        <div className={styles.productPrice}>
+          {CURRENCY_SYMBOL} {price}
+        </div>
         <a className={styles.productName} href={`${PRODUCT_PATH}/${id}`}>
           {name}
         </a>

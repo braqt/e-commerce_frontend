@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import { MdExpandMore } from "react-icons/md";
 
+import { CURRENCY_SYMBOL } from "../../constants";
 import {
   centsToCurrencyNormalValue,
   orderStatusToString,
@@ -10,14 +11,16 @@ import {
   paymentStatusToString,
   timestampToDateWithFormat,
 } from "../../utils/conversions";
-import { OrderedProduct } from "../../services/interfaces";
-import { getProduct } from "../../services";
+import SpinnerLoader from "../loaders/spinnerLoader";
 import { IOrder } from "../../interfaces/context";
+
+import { getProduct } from "../../services";
+import { OrderedProduct } from "../../services/interfaces";
+
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ProductInCartForConfirmation from "../ProductInCart/ProductInCartForConfirmation";
-import SpinnerLoader from "../loaders/spinnerLoader";
 
 interface Props {
   order: IOrder;
@@ -58,7 +61,8 @@ const OrderAccordion = ({ order }: Props) => {
           <AccordionSummary expandIcon={<MdExpandMore />}>
             <div>{order.products.length} different articles</div>
             <div style={{ marginLeft: "20px" }}>
-              Total: Bs {centsToCurrencyNormalValue(order.totalInCents)}
+              Total: {CURRENCY_SYMBOL}{" "}
+              {centsToCurrencyNormalValue(order.totalInCents)}
             </div>
           </AccordionSummary>
           <AccordionDetails>

@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+
+import { CURRENCY_SYMBOL } from "../../constants";
 import {
   centsToCurrencyNormalValue,
   orderStatusToString,
@@ -20,7 +15,16 @@ import {
   PaymentMethod,
   PaymentStatus,
 } from "../../interfaces/context";
+
 import { UserOrder } from "../../services/interfaces";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 interface ProductDataRow {
   orderNumber: number;
@@ -116,7 +120,7 @@ const UserOrdersTable = ({ orders }: Props) => {
                 {timestampToDateWithFormat(row.createdAt)}
               </StyledTableCell>
               <StyledTableCell align="left">
-                Bs {centsToCurrencyNormalValue(row.totalInCents)}
+                {CURRENCY_SYMBOL} {centsToCurrencyNormalValue(row.totalInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {paymentMethodToString(row.paymentMethod)}

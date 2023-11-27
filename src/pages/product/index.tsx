@@ -6,6 +6,7 @@ import styles from "./index.module.css";
 
 import { MY_CART_PATH } from "../../navigation/pagePaths";
 
+import { CURRENCY_SYMBOL } from "../../constants";
 import { centsToCurrencyNormalValue } from "../../utils/conversions";
 import { useCart } from "../../context/cart";
 import { useAuthentication } from "../../context/auth";
@@ -57,7 +58,8 @@ const ProductPage = () => {
               <div>{product.name}</div>
               <div>Item Code: {product._id}</div>
               <div>
-                Bs {centsToCurrencyNormalValue(product.finalPriceInCents)}
+                {CURRENCY_SYMBOL}{" "}
+                {centsToCurrencyNormalValue(product.finalPriceInCents)}
               </div>
               <hr />
               {product.discountPercentage != 0 && (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { CURRENCY_SYMBOL } from "../../constants";
 import {
   centsToCurrencyNormalValue,
   orderStatusToString,
@@ -154,7 +155,8 @@ const OrdersTable = ({ orders }: Props) => {
                 {`${row.name} ${row.lastName}`}
               </StyledTableCell>
               <StyledTableCell align="left">
-                Bs {centsToCurrencyNormalValue(row.totalPriceInCents)}
+                {CURRENCY_SYMBOL}{" "}
+                {centsToCurrencyNormalValue(row.totalPriceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {paymentMethodToString(row.paymentMethod)}

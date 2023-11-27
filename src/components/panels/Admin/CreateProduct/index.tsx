@@ -5,17 +5,12 @@ import accessStyles from "../../Access/index.module.css";
 import adminPanelStyles from "../index.module.css";
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../../../constants";
+
 import StyledInput from "../../../Input/StyledInput";
-import {
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import { createProduct } from "../../../../services/adminService";
 import { useAuthentication } from "../../../../context/auth";
-
-const categories = ["Phone", "Bicycle"];
 
 interface Props {
   onClickBack: () => void;
@@ -150,7 +145,7 @@ const CreateProductPanel = ({ onClickBack, onCreateProduct }: Props) => {
           <div className={accessStyles.labelAndInput}>
             <div>Final Price</div>
             <div className={adminPanelStyles.finalPrice}>
-              Bs{" "}
+              {CURRENCY_SYMBOL}{" "}
               {+inputValues.price -
                 +inputValues.price * (+inputValues.discount / 100)}
             </div>

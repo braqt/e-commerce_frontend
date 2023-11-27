@@ -7,6 +7,7 @@ import globalStyles from "../../../../index.module.css";
 import adminPanelstyles from "../index.module.css";
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../../../constants";
 import { useAuthentication } from "../../../../context/auth";
 import { OrderStatus, PaymentStatus } from "../../../../interfaces/context";
 import {
@@ -15,12 +16,14 @@ import {
   paymentMethodToString,
   paymentStatusToString,
 } from "../../../../utils/conversions";
+
 import { Order } from "../../../../services/interfaces";
 import {
   adminSetOrderStatus,
   adminSetPaymentStatus,
   getAdminOrder,
 } from "../../../../services/adminService";
+
 import SpinnerLoader from "../../../loaders/spinnerLoader";
 import ProductInCartForConfirmation from "../../../ProductInCart/ProductInCartForConfirmation";
 
@@ -190,7 +193,8 @@ const OrderPanel = () => {
                       </label>
                     </span>
                     <div>
-                      Bs {centsToCurrencyNormalValue(order.totalInCents)}
+                      {CURRENCY_SYMBOL}{" "}
+                      {centsToCurrencyNormalValue(order.totalInCents)}
                     </div>
                   </div>
                   <div
@@ -204,7 +208,8 @@ const OrderPanel = () => {
                   >
                     <label>Total</label>
                     <div style={{ fontSize: "1.125rem" }}>
-                      Bs {centsToCurrencyNormalValue(order.totalInCents)}
+                      {CURRENCY_SYMBOL}{" "}
+                      {centsToCurrencyNormalValue(order.totalInCents)}
                     </div>
                   </div>
                 </div>

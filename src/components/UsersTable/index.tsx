@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { CURRENCY_SYMBOL } from "../../constants";
 import { centsToCurrencyNormalValue } from "../../utils/conversions";
 import { ADMIN_USER } from "../../navigation/pagePaths";
 
@@ -133,7 +134,8 @@ const UsersTable = ({ users }: Props) => {
                 {row.numberOfCompletedOrders}
               </StyledTableCell>
               <StyledTableCell align="left">
-                Bs {centsToCurrencyNormalValue(row.totalSpentInCents)}
+                {CURRENCY_SYMBOL}{" "}
+                {centsToCurrencyNormalValue(row.totalSpentInCents)}
               </StyledTableCell>
             </StyledTableRow>
           ))}

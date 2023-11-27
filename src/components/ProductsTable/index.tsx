@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../constants";
 import {
   centsToCurrencyNormalValue,
   timestampToDateWithFormat,
@@ -128,11 +129,12 @@ const ProductsTable = ({ products }: Props) => {
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="left">
-                Bs {centsToCurrencyNormalValue(row.priceInCents)}
+                {CURRENCY_SYMBOL} {centsToCurrencyNormalValue(row.priceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">{`${row.discountPercentage}%`}</StyledTableCell>
               <StyledTableCell align="left">
-                Bs {centsToCurrencyNormalValue(row.finalPriceInCents)}
+                {CURRENCY_SYMBOL}{" "}
+                {centsToCurrencyNormalValue(row.finalPriceInCents)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {timestampToDateWithFormat(row.createdAt)}

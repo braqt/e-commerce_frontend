@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import globalStyles from "../../../../index.module.css";
 import adminPanelstyles from "../index.module.css";
 import styles from "./index.module.css";
 
+import { CURRENCY_SYMBOL } from "../../../../constants";
+import {
+  centsToCurrencyNormalValue,
+  timestampToRelativeData,
+} from "../../../../utils/conversions";
 import { useAuthentication } from "../../../../context/auth";
+
 import {
   AccountWithStatistics,
   UserOrder,
@@ -13,13 +20,9 @@ import {
   getAdminUser,
   getAdminUserOrders,
 } from "../../../../services/adminService";
+
 import SpinnerLoader from "../../../loaders/spinnerLoader";
-import { useParams } from "react-router-dom";
 import UserOrdersTable from "../../../UserOrdersTable";
-import {
-  centsToCurrencyNormalValue,
-  timestampToRelativeData,
-} from "../../../../utils/conversions";
 
 const UserPanel = () => {
   const { idUser } = useParams();
@@ -92,7 +95,7 @@ const UserPanel = () => {
                   <div className={styles.userStatistics}>
                     <div>Total value of purchases</div>
                     <div>
-                      Bs{" "}
+                      {CURRENCY_SYMBOL}{" "}
                       {centsToCurrencyNormalValue(
                         user?.statistics.totalSpentInCents
                       )}

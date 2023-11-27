@@ -46,7 +46,11 @@ const ProductsPanel = ({ onClickCreateProduct }: Props) => {
       <div className={adminPanelStyles.title}>Products</div>
       <div className={styles.operationFrame}>
         <div className={styles.filters}>
-          <StyledInput value={name} onChange={onChangeName} />
+          <StyledInput
+            value={name}
+            placeholder="Product Name"
+            onChange={onChangeName}
+          />
           <button onClick={fetchAndSetProducts}>search</button>
         </div>
         <button onClick={onClickCreateProduct}>+ add product</button>

@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 
 import { useAuthentication } from "../../context/auth";
 
 import {
+  ADMIN_PRODUCTS,
   MY_CART_PATH,
   PRODUCTS_PATH,
   SIGN_IN_PATH,
   SIGN_UP_PATH,
 } from "../../navigation/pagePaths";
 
+import { Account } from "../../services/interfaces";
+import { getAccount } from "../../services/userService";
+
 import "./index.css";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { user, signOut } = useAuthentication();
+  const { user, firebaseAuthToken, signOut } = useAuthentication();
+  const [account, setAccount] = useState<Account | null>(null);
+
+  const fetchAccount = async () => {
+    if (user) {
+      const account = await getAccount(firebaseAuthToken);
+      setAccount(account);
+    }
+  };
 
   const onClickSignIn = () => {
     navigate(SIGN_IN_PATH);
@@ -30,13 +42,21 @@ const NavBar = () => {
     navigate(SIGN_IN_PATH);
   };
 
+  const onClickLogo = () => {
+    navigate(PRODUCTS_PATH);
+  };
+
   const onClickCart = () => {
     navigate(MY_CART_PATH);
   };
 
-  const onClickLogo = () => {
-    navigate(PRODUCTS_PATH);
+  const onClickAdmin = () => {
+    navigate(ADMIN_PRODUCTS);
   };
+
+  useEffect(() => {
+    fetchAccount();
+  }, []);
 
   return (
     <nav>
@@ -49,6 +69,11 @@ const NavBar = () => {
             <button style={{ marginRight: "10px" }} onClick={onClickCart}>
               <RiShoppingCartLine />
             </button>
+            {account?.isAdmin && (
+              <button style={{ marginRight: "10px" }} onClick={onClickAdmin}>
+                admin
+              </button>
+            )}
             <button onClick={onClickSignOut}>signOut</button>
           </>
         )}

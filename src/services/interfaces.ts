@@ -45,7 +45,7 @@ export interface Account {
   dni: number;
   email: string;
   firebaseAuthID: string;
-  isAdmin: string;
+  isAdmin: boolean;
   emailVerified: boolean;
   createdAt: string;
 }

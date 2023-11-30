@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import accessStyles from "../index.module.css";
 import styles from "./index.module.css";
@@ -6,11 +7,15 @@ import styles from "./index.module.css";
 import {
   PRIVACY_POLICIES_PATH,
   TERMS_AND_CONDITIONS_PATH,
+  VERIFY_EMAIL_PATH,
 } from "../../../../navigation/pagePaths";
 import { AuthError } from "firebase/auth";
-import { Checkbox } from "@mui/material";
 import { useAuthentication } from "../../../../context/auth";
 import { getMessageFromAuthError } from "../../../../utils/firebase";
+
+import { createAccount } from "../../../../services/userService";
+
+import { Checkbox } from "@mui/material";
 import StyledInput from "../../../Input/StyledInput";
 import NaturalNumberInput from "../../../Input/NaturalNumberInput";
 
@@ -19,7 +24,8 @@ interface Props {
 }
 
 const SignUp = ({ onClickGoToSignInPageButton }: Props) => {
-  const { signUp } = useAuthentication();
+  const navigate = useNavigate();
+  const { signUp, sendEmailVerification } = useAuthentication();
   const [inputValues, setInputValues] = useState({
     name: "",
     lastName: "",
@@ -32,6 +38,7 @@ const SignUp = ({ onClickGoToSignInPageButton }: Props) => {
   });
   const [termsAndPrivacyPoliciesAccepted, setTermsAndPrivacyPoliciesAccepted] =
     useState(false);
+  const [signUpAsAdmin, setSignUpAsAdmin] = useState(false);
   const [error, setError] = useState("");
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +49,12 @@ const SignUp = ({ onClickGoToSignInPageButton }: Props) => {
 
   const onClickCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermsAndPrivacyPoliciesAccepted(e.target.checked);
+  };
+
+  const onClickSignUpAsAdminCheckbox = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSignUpAsAdmin(e.target.checked);
   };
 
   const allPersonalDataValid = () => {
@@ -65,7 +78,17 @@ const SignUp = ({ onClickGoToSignInPageButton }: Props) => {
     } else {
       if (allPersonalDataValid()) {
         try {
-          await signUp(inputValues.email, inputValues.password);
+          const user = await signUp(inputValues.email, inputValues.password);
+          await createAccount({
+            name: inputValues.name,
+            lastName: inputValues.lastName,
+            phone: inputValues.phone,
+            dni: inputValues.documentNumber,
+            email: inputValues.email,
+            isAdmin: signUpAsAdmin,
+            firebaseAuthID: user.uid,
+          });
+          sendEmailVerification(user);
         } catch (e) {
           setError(getMessageFromAuthError(e as AuthError));
         }
@@ -181,6 +204,22 @@ const SignUp = ({ onClickGoToSignInPageButton }: Props) => {
                 </div>
               </div>
             </div>
+          </div>
+          <div
+            style={{
+              margin: "20px auto 0px auto",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Checkbox
+              onChange={onClickSignUpAsAdminCheckbox}
+              value={signUpAsAdmin}
+            />
+            <span>
+              <label>Sign up as Admin (Optional)</label>
+            </span>
           </div>
           <div
             style={{

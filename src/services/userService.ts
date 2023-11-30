@@ -1,5 +1,5 @@
 import config from "../constants/config";
-import { GET_ACCOUNT } from "./CONSTANTS";
+import { CREATE_ACCOUNT, GET_ACCOUNT } from "./CONSTANTS";
 import { Account } from "./interfaces";
 
 export const getAccount = async (
@@ -14,4 +14,24 @@ export const getAccount = async (
   });
 
   return await response.json();
+};
+
+export const createAccount = async (account: {
+  name: string;
+  lastName: string;
+  phone: string;
+  dni: string;
+  email: string;
+  isAdmin?: boolean;
+  firebaseAuthID: string;
+}) => {
+  await fetch(config.SERVER_DOMAIN + CREATE_ACCOUNT, {
+    method: "post",
+    body: JSON.stringify({
+      ...account,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };

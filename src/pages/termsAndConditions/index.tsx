@@ -4,7 +4,7 @@ import globalStyles from "../../index.module.css";
 const TermsAndConditionsPage = () => {
   return (
     <div className={globalStyles.pageFrame}>
-      <div>Privacy Policies</div>
+      <div>Terms Of Service</div>
       <div style={{ marginTop: "60px" }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare
         lacinia sagittis. Nullam vitae nibh vulputate, tempus erat eget,

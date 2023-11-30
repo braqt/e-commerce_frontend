@@ -5,6 +5,7 @@ import {
   AUTH_INVALID_PASSWORD,
   AUTH_TOO_MANY_REQUESTS,
   AUTH_USER_NOT_FOUND,
+  AUTH_WEAK_PASSWORD,
   AUTH_WRONG_PASSWORD,
 } from "../constants/firebase/firebaseErrorCodes";
 
@@ -22,6 +23,8 @@ export const getMessageFromAuthError = (authError: AuthError) => {
       return "No user found for this email/password";
     case AUTH_TOO_MANY_REQUESTS:
       return "Access to this account has been temporarily disabled due to many failed login attempts";
+    case AUTH_WEAK_PASSWORD:
+      return "Password should be at least 6 characters";
     default:
       throw Error("Not error message found for that code error");
   }

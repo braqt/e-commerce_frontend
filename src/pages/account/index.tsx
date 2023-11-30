@@ -5,8 +5,10 @@ import styles from "./index.module.css";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthentication } from "../../context/auth";
-import { getAccount } from "../../services/userService";
+
 import { Account } from "../../services/interfaces";
+import { getAccount } from "../../services/userService";
+
 import { RESTORE_PASSWORD_PATH } from "../../navigation/pagePaths";
 import SpinnerLoader from "../../components/loaders/spinnerLoader";
 
@@ -36,7 +38,7 @@ const AccountPage = () => {
   return (
     <div className={globalStyles.pageFrame}>
       {loadingAccount && <SpinnerLoader />}
-      {!loadingAccount && account && (
+      {!loadingAccount && user && account && (
         <>
           <div>My Account</div>
           <div>
@@ -112,7 +114,7 @@ const AccountPage = () => {
                   <label className={styles.descriptionName}>
                     Email Verificado:
                   </label>
-                  <label>{account.emailVerified ? "Yes" : "No"}</label>
+                  <label>{user.emailVerified ? "Yes" : "No"}</label>
                 </span>
               </div>
               <div

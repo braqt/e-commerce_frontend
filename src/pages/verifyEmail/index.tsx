@@ -80,7 +80,7 @@ const VerifyEmailPage = () => {
               style={{ marginTop: "30px" }}
               onClick={sendPasswordResetEmail}
             >
-              Send Email
+              Send Email Again
             </button>
           </div>
         </>

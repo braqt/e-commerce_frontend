@@ -28,7 +28,7 @@ const CheckoutPage = () => {
     useState(false);
   const { user } = useAuthentication();
   const [productsInCart, setProductsInCart] = useState<IProductInCart[]>([]);
-  const [loadingProductsInCart, setLoadingProductsInCart] =
+  const [loadingProductsInCheckout, setLoadingProductsInCheckout] =
     useState<boolean>(true);
 
   const handleNext = () => {
@@ -78,8 +78,8 @@ const CheckoutPage = () => {
         productsInCart.push({ product, quantity: productInLS.quantity });
       }
       setProductsInCart(productsInCart);
-      setLoadingProductsInCart(false);
     }
+    setLoadingProductsInCheckout(false);
   };
 
   useEffect(() => {
@@ -89,8 +89,8 @@ const CheckoutPage = () => {
   return (
     <div className={globalStyles.pageFrame}>
       <div>My Checkout</div>
-      {loadingProductsInCart && <SpinnerLoader />}
-      {!loadingProductsInCart && (
+      {loadingProductsInCheckout && <SpinnerLoader />}
+      {!loadingProductsInCheckout && (
         <>
           {productsOrderedWithSuccess && (
             <div style={{ marginTop: "60px" }}>
@@ -126,9 +126,11 @@ const CheckoutPage = () => {
                   </div>
                 </>
               )}
-              {productsInCart.length == 0 && (
-                <div>No products in your cart</div>
-              )}
+              <div style={{ marginTop: "60px" }}>
+                {productsInCart.length == 0 && (
+                  <div>No products in your checkout</div>
+                )}
+              </div>
             </>
           )}
         </>

@@ -80,8 +80,8 @@ const MyCart = () => {
         productsInCart.push({ product, quantity: productInLS.quantity });
       }
       setProductsInCart(productsInCart);
-      setLoadingProductsInCart(false);
     }
+    setLoadingProductsInCart(false);
   };
 
   useEffect(() => {

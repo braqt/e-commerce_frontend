@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RiShoppingCartLine } from "react-icons/ri";
 
 import { useAuthentication } from "../../context/auth";
 
 import {
   ADMIN_PRODUCTS,
   MY_CART_PATH,
+  MY_ORDERS_PATH,
   PRODUCTS_PATH,
   SIGN_IN_PATH,
   SIGN_UP_PATH,
@@ -54,6 +54,10 @@ const NavBar = () => {
     navigate(ADMIN_PRODUCTS);
   };
 
+  const onClickMyOrders = () => {
+    navigate(MY_ORDERS_PATH);
+  };
+
   useEffect(() => {
     fetchAccount();
   }, []);
@@ -66,14 +70,17 @@ const NavBar = () => {
       <div>
         {user && (
           <>
-            <button style={{ marginRight: "10px" }} onClick={onClickCart}>
-              <RiShoppingCartLine />
-            </button>
             {account?.isAdmin && (
               <button style={{ marginRight: "10px" }} onClick={onClickAdmin}>
                 admin
               </button>
             )}
+            <button style={{ marginRight: "10px" }} onClick={onClickCart}>
+              my cart
+            </button>
+            <button style={{ marginRight: "10px" }} onClick={onClickMyOrders}>
+              my orders
+            </button>
             <button onClick={onClickSignOut}>signOut</button>
           </>
         )}

@@ -41,11 +41,11 @@ const ProductCard = ({
       <div style={{ marginTop: "10px" }}>
         {discount > 0 && (
           <div className={styles.discountPrice}>
-            {CURRENCY_SYMBOL} {finalPrice}
+            {CURRENCY_SYMBOL} {price}
           </div>
         )}
         <div className={styles.productPrice}>
-          {CURRENCY_SYMBOL} {price}
+          {CURRENCY_SYMBOL} {finalPrice}
         </div>
         <a className={styles.productName} href={`${PRODUCT_PATH}/${id}`}>
           {name}

@@ -24,7 +24,7 @@ const ConfirmProductsInCart = ({
           key={productInCart.product._id}
           image={productInCart.product.imagesUrl[0]}
           name={productInCart.product.name}
-          priceInCents={productInCart.product.priceInCents}
+          priceInCents={productInCart.product.finalPriceInCents}
           quantity={productInCart.quantity}
         />
       ))}
